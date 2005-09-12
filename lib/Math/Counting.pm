@@ -1,36 +1,36 @@
-# $Id: Counting.pm,v 1.1.1.1 2005/09/12 03:36:24 gene Exp $
+# $Id: Counting.pm,v 1.3 2005/09/12 20:03:38 gene Exp $
 
 package Math::Counting;
 use strict;
 use warnings;
 use Carp;
-use vars qw( $VERSION );
-$VERSION = '0.00_01';
-
-sub new {
-    my $class = shift;
-    my $proto = ref $class || $class;
-    my $self  = {};
-    bless $self, $class;
-    $self->_init( @_ );
-    return $self;
-}
-
-sub _init {
-    my $self = shift;
-    ( $self->{n}, $self->{r} ) = @_;
-}
+use base 'Exporter';
+use vars qw( @EXPORT $VERSION );
+@EXPORT = qw( factorial permutation combination );
+$VERSION = '0.00_02';
 
 sub factorial {
-    my $self = shift;
+    my $n = shift;
+    my $product = 1;
+    until( $n == 0 ) {
+        $product *= $n--;
+    }
+    return $product;
 }
 
 sub permutation {
-    my $self = shift;
+    my( $n, $r ) = @_;
+    return 'not yet implemented';
 }
 
 sub combination {
-    my $self = shift;
+    my( $n, $r ) = @_;
+    my $product = 1;
+    while( $r ) {
+        $product *= $n--;
+        $product /= $r--;
+    }
+    return $product;
 }
 
 1;
@@ -43,60 +43,44 @@ Math::Counting - Counting operations for probability and combinatorics
 
 =head1 SYNOPSIS
 
-  use integer;  # optional
-  use Memoize;  # optional
-
-  use Math::Counting;
+  use Math::Counting qw( factorial permutation combination );
 
   my $n = 123;
   my $r = 42;
 
-  my $x = Math::Counting->new( $n, $r );
-
   printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb = %d\n",
-    $n, $r, $x->factorial, $x->permutation, $x->combination;
+    $n, $r,
+    factorial($n), permutation($n, $r), $x->combination($n, $r);
 
 =head1 DESCRIPTION
 
-Compute the numerical factorial, number of permutations or combinations.
+Compute the numerical factorial, number of permutations or
+combinations with the technique of "tail call elimination."
 
-=head1 PUBLIC METHODS
-
-=head2 new
-
-  $x = Math::Counting->new( $n, $r );
-
-Return a new C<Math::Counting> object.
+=head1 FUNCTIONS
 
 =head2 factorial
 
-  $f = $x->factorial();     # Uses the settings from construction
-  $f = $x->factorial( $n );
+  $f = factorial($n);
 
-Return the factorial of B<n> (B<n!>).
+Return the factorial of B<n>.
 
 =head2 permutation
 
-  $p = $x->permutation();   # Uses the settings from construction
-  $p = $x->permutation( $n, $r );
+  $p = permutation($n, $r);
 
-Return the number of permutations of B<n> items given B<r>.
+Return the number of permutations.
 
 =head2 combination
 
-  $c = $x->combination();   # Uses the settings from construction
-  $c = $x->combination( $n, $r );
+  $c = combination($n, $r);
 
-Return the number of combinations of B<n> items given B<r>.
-
-=head1 TO DO
-
-Export small functions instead of object methods as an option.
+Return the number of combinations.
 
 =head1 THANK YOU
 
-Mark Jason Dominus for writing C<Memoize> and C<Higher Order Perl> and
-for mentioning this URL to me:
+Mark Jason Dominus E<lt>mjd@cpan.orgE<gt> for writing
+C<Higher Order Perl>.
 
 =head1 SEE ALSO
 
