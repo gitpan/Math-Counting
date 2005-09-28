@@ -1,4 +1,4 @@
-# $Id: Counting.pm,v 1.3 2005/09/12 20:03:38 gene Exp $
+# $Id: Counting.pm,v 1.5 2005/09/28 07:25:04 gene Exp $
 
 package Math::Counting;
 use strict;
@@ -7,7 +7,7 @@ use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT $VERSION );
 @EXPORT = qw( factorial permutation combination );
-$VERSION = '0.01';
+$VERSION = '0.02';
 
 sub factorial {
     my $n = shift;
@@ -75,7 +75,7 @@ Return the number of arrangements of B<n>.
 
   $p = permutation($n, $k);
 
-Return the number of arrangements of B<n> elements drawn from a set of
+Return the number of arrangements of B<k> elements drawn from a set of
 B<n> elements.
 
 =head2 combination

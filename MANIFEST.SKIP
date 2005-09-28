@@ -4,11 +4,10 @@ CVS/.*
 \.sw[a-z]$
 \.tar$
 \.tgz$
-\.tar\.gz$
+\.gz$
 ^tmp/
 ^blib/
 ^Makefile$
 ^Makefile\.[a-z]+$
 ^pm_to_blib$
-^pm$
 ~$
