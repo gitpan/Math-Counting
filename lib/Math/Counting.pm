@@ -7,26 +7,31 @@ use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT $VERSION );
 @EXPORT = qw( factorial permutation combination );
-$VERSION = '0.00_02';
+$VERSION = '0.01';
 
 sub factorial {
     my $n = shift;
     my $product = 1;
-    until( $n == 0 ) {
+    while( $n > 0 ) {
         $product *= $n--;
     }
     return $product;
 }
 
 sub permutation {
-    my( $n, $r ) = @_;
-    return 'not yet implemented';
+    my( $n, $k ) = @_;
+    my $product = 1;
+    while( $k > 0 ) {
+        $product *= $n--;
+        $k--;
+    }
+    return $product;
 }
 
 sub combination {
     my( $n, $r ) = @_;
     my $product = 1;
-    while( $r ) {
+    while( $r > 0 ) {
         $product *= $n--;
         $product /= $r--;
     }
@@ -39,23 +44,24 @@ __END__
 
 =head1 NAME
 
-Math::Counting - Counting operations for probability and combinatorics
+Math::Counting - Efficient combinatorial counting operations
 
 =head1 SYNOPSIS
 
   use Math::Counting qw( factorial permutation combination );
 
-  my $n = 123;
-  my $r = 42;
+  my $n = 42;
+  my $r = 27;
 
-  printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb = %d\n",
-    $n, $r,
-    factorial($n), permutation($n, $r), $x->combination($n, $r);
+  printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
+    $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
 
 =head1 DESCRIPTION
 
-Compute the numerical factorial, number of permutations or
-combinations with the technique of "tail call elimination."
+Compute the numerical factorial, number of permutations and number of
+combinations using the efficient technique of "tail call elimination"
+as detailed in B<Higher Order Perl> and based on the algorithms in
+B<Mastering Algorithms with Perl>.
 
 =head1 FUNCTIONS
 
@@ -63,40 +69,42 @@ combinations with the technique of "tail call elimination."
 
   $f = factorial($n);
 
-Return the factorial of B<n>.
+Return the number of arrangements of B<n>.
 
 =head2 permutation
 
-  $p = permutation($n, $r);
+  $p = permutation($n, $k);
 
-Return the number of permutations.
+Return the number of arrangements of B<n> elements drawn from a set of
+B<n> elements.
 
 =head2 combination
 
   $c = combination($n, $r);
 
-Return the number of combinations.
+Return the number of ways to choose B<r> elements from a set of B<n>
+elements.
 
-=head1 THANK YOU
+=head1 TO DO
 
-Mark Jason Dominus E<lt>mjd@cpan.orgE<gt> for writing
-C<Higher Order Perl>.
+Provide the gamma function for the factorial of non-integer numbers.
 
-=head1 SEE ALSO
-
-C<http://www.plover.com/~mjd/misc/perl/pc.pl>
-
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
 Copyright 2005, Gene Boggs, All Rights Reserved
 
-=head1 LICENSE
-
-You may use this module under the terms of the BSD, Artistic, or GPL 
-licenses, any version.
+You may use this package under the same terms as Perl itself.
 
 =head1 AUTHOR
 
-Gene Boggs E<lt>gene@cpan.orgE<gt>
+Not me.  I am but a pebble on the beach.
+
+=head1 SEE ALSO
+
+B<Higher Order Perl> by Mark Jason Dominus
+(L<http://hop.perl.plover.com/>).
+
+B<Mastering Algorithms with Perl> by Orwant, Hietaniemi & Macdonald
+(L<http://www.oreilly.com/catalog/maperl/>).
 
 =cut
