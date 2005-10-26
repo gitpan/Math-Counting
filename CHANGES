@@ -1,15 +1,21 @@
-Changes file for Math::Counting
+Changes for Math::Counting
 
-0.00_01 Sun Sep 11 18:51:29, 2005
-    - Created with Module::Husbandry.
+0.03 Wed Oct 26, 2005
+    - Reseached the permutation function again and found that I was
+      still correct. 
+    - Cleaned up POD.
+    - Added a slew of goofy edge-case tests.
+
+0.02 Tue Sep 28, 2005
+    - Ack. A Single Typo. :\
+    - Made the test actually test edge cases.
+
+0.01 Tue Sep 27 7PM, 2005
+    - Remembered to finish this module.
 
 0.00_02 Mon Sep 12, 2005
     - Added MJD's algorithms.
     - Replaced the stupid OO crap with exported functions.
 
-0.01 Tue Sep 27 7PM, 2005
-    - Remembered to finish this module.
-
-0.02 Tue Sep 28, 2005
-    - Ack. A Single Typo. :\
-    - Made the test actually test edge cases.
+0.00_01 Sun Sep 11 18:51:29, 2005
+    - Created with Module::Husbandry.

@@ -1,4 +1,4 @@
-# $Id: Counting.pm,v 1.5 2005/09/28 07:25:04 gene Exp $
+# $Id: Counting.pm,v 1.8 2005/10/26 06:15:07 gene Exp $
 
 package Math::Counting;
 use strict;
@@ -7,7 +7,7 @@ use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT $VERSION );
 @EXPORT = qw( factorial permutation combination );
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 sub factorial {
     my $n = shift;
@@ -44,7 +44,7 @@ __END__
 
 =head1 NAME
 
-Math::Counting - Efficient combinatorial counting operations
+Math::Counting - Combinatorial counting operations
 
 =head1 SYNOPSIS
 
@@ -59,9 +59,12 @@ Math::Counting - Efficient combinatorial counting operations
 =head1 DESCRIPTION
 
 Compute the numerical factorial, number of permutations and number of
-combinations using the efficient technique of "tail call elimination"
-as detailed in B<Higher Order Perl> and based on the algorithms in
-B<Mastering Algorithms with Perl>.
+combinations using the technique of "tail call elimination" as detailed
+in B<Higher Order Perl> and based on the algorithms in B<Mastering
+Algorithms with Perl>.
+
+Note that this code uses floating point, as opposed to "infinite
+precision," arithmatic.
 
 =head1 FUNCTIONS
 
@@ -76,7 +79,18 @@ Return the number of arrangements of B<n>.
   $p = permutation($n, $k);
 
 Return the number of arrangements of B<k> elements drawn from a set of
-B<n> elements.
+B<n> elements.  B<nPn> is the same as B<n!>
+
+The term "permutation" has a wide variety of definitions, like this
+gem: "The number of permutations of a set of n elements is denoted n!
+and pronounced 'n factorial.'"  However, here is a possibly
+enlightening quote from a reference below:
+
+ In combinatorics, the term permutation has a traditional meaning,
+ which is used to include ordered lists without repetition, but not
+ exhaustive (so of less than maximum length)...
+
+This package uses the combinatorial sense of the term.
 
 =head2 combination
 
@@ -87,24 +101,30 @@ elements.
 
 =head1 TO DO
 
-Provide the gamma function for the factorial of non-integer numbers.
+Provide the gamma function for the factorial of non-integer numbers?
 
-=head1 COPYRIGHT AND LICENSE
-
-Copyright 2005, Gene Boggs, All Rights Reserved
-
-You may use this package under the same terms as Perl itself.
-
-=head1 AUTHOR
-
-Not me.  I am but a pebble on the beach.
+Provide a way to use infinite precision arithmetic.
 
 =head1 SEE ALSO
+
+The C<bfac> function of the C<Math::BigInt> module.
 
 B<Higher Order Perl> by Mark Jason Dominus
 (L<http://hop.perl.plover.com/>).
 
 B<Mastering Algorithms with Perl> by Orwant, Hietaniemi & Macdonald
 (L<http://www.oreilly.com/catalog/maperl/>).
+
+And L<http://encyclopedia.laborlawtalk.com/Permutation> actually.
+
+=head1 AUTHOR
+
+Not me.  I am but a pebble on the beach.
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright 2005 Gene Boggs All Rights Reserved
+
+You may use this package under the same terms as Perl itself.
 
 =cut
