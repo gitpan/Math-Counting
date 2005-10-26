@@ -1,5 +1,8 @@
 Changes for Math::Counting
 
+0.0301 Wed Oct 26, 2005
+    - oof. Forgot to fix-up the tests=>flag :(
+
 0.03 Wed Oct 26, 2005
     - Reseached the permutation function again and found that I was
       still correct. 

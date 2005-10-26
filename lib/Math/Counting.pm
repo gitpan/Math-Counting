@@ -1,4 +1,4 @@
-# $Id: Counting.pm,v 1.8 2005/10/26 06:15:07 gene Exp $
+# $Id: Counting.pm,v 1.9 2005/10/26 15:40:59 gene Exp $
 
 package Math::Counting;
 use strict;
@@ -7,7 +7,7 @@ use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT $VERSION );
 @EXPORT = qw( factorial permutation combination );
-$VERSION = '0.03';
+$VERSION = '0.0301';
 
 sub factorial {
     my $n = shift;

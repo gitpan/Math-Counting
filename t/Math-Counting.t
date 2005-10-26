@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 use strict;
-use Test::More tests => 36;
+use Test::More tests => 30;
 use_ok 'Math::Counting';
 
 # This is not what I would call a rigorous test.  However, 42 is the
