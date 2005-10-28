@@ -1,4 +1,4 @@
-# $Id: Counting.pm,v 1.9 2005/10/26 15:40:59 gene Exp $
+# $Id: Counting.pm,v 1.10 2005/10/28 04:43:11 gene Exp $
 
 package Math::Counting;
 use strict;
@@ -7,7 +7,7 @@ use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT $VERSION );
 @EXPORT = qw( factorial permutation combination );
-$VERSION = '0.0301';
+$VERSION = '0.0302';
 
 sub factorial {
     my $n = shift;
@@ -64,7 +64,7 @@ in B<Higher Order Perl> and based on the algorithms in B<Mastering
 Algorithms with Perl>.
 
 Note that this code uses floating point, as opposed to "infinite
-precision," arithmatic.
+precision," arithmetic.
 
 =head1 FUNCTIONS
 
