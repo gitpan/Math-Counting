@@ -1,4 +1,4 @@
-# $Id: Counting.pm,v 1.10 2005/10/28 04:43:11 gene Exp $
+# $Id: Counting.pm,v 1.12 2005/11/15 19:05:14 gene Exp $
 
 package Math::Counting;
 use strict;
@@ -7,10 +7,10 @@ use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT $VERSION );
 @EXPORT = qw( factorial permutation combination );
-$VERSION = '0.0302';
+$VERSION = 0.04;
 
 sub factorial {
-    my $n = shift;
+    my( $n ) = @_;
     my $product = 1;
     while( $n > 0 ) {
         $product *= $n--;
@@ -19,11 +19,11 @@ sub factorial {
 }
 
 sub permutation {
-    my( $n, $k ) = @_;
+    my( $n, $r ) = @_;
     my $product = 1;
-    while( $k > 0 ) {
+    while( $r > 0 ) {
         $product *= $n--;
-        $k--;
+        $r--;
     }
     return $product;
 }
@@ -76,19 +76,19 @@ Return the number of arrangements of B<n>.
 
 =head2 permutation
 
-  $p = permutation($n, $k);
+  $p = permutation($n, $r);
 
-Return the number of arrangements of B<k> elements drawn from a set of
+Return the number of arrangements of B<r> elements drawn from a set of
 B<n> elements.  B<nPn> is the same as B<n!>
 
 The term "permutation" has a wide variety of definitions, like this
-gem: "The number of permutations of a set of n elements is denoted n!
-and pronounced 'n factorial.'"  However, here is a possibly
+confusing gem: "The number of permutations of a set of n elements is
+denoted n!  and pronounced 'n factorial.'"  However, here is an
 enlightening quote from a reference below:
 
- In combinatorics, the term permutation has a traditional meaning,
- which is used to include ordered lists without repetition, but not
- exhaustive (so of less than maximum length)...
+"In combinatorics, the term permutation has a traditional meaning,
+which is used to include ordered lists without repetition, but not
+exhaustive (so of less than maximum length)..."
 
 This package uses the combinatorial sense of the term.
 
@@ -103,7 +103,7 @@ elements.
 
 Provide the gamma function for the factorial of non-integer numbers?
 
-Provide a way to use infinite precision arithmetic.
+Provide a way to use infinite precision arithmetic?
 
 =head1 SEE ALSO
 

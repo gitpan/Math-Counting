@@ -1,5 +1,11 @@
 Changes for Math::Counting
 
+0.04 Tue Nov 15, 2006
+    - Cleaned up the unit test.
+    - Cleaned up the Makefile.PL a bit.
+    - Cleaned up the POD.
+    - Made the three exported functions share identical syntax.
+
 0.0302 Thu Oct 27, 2005
     - Ack! The most horrid, ironically stupid typo ever.
       (This was supposed to be a simple package... Someone
