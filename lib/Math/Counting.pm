@@ -1,14 +1,18 @@
-# $Id: Counting.pm,v 1.12 2005/11/15 19:05:14 gene Exp $
+# $Id: Counting.pm,v 1.14 2005/12/05 03:35:18 gene Exp $
 
 package Math::Counting;
 use strict;
 use warnings;
 use Carp;
 use base 'Exporter';
-use vars qw( @EXPORT $VERSION );
-@EXPORT = qw( factorial permutation combination );
-$VERSION = 0.04;
+use vars qw( @EXPORT %EXPORT_TAGS $VERSION );
+@EXPORT = qw( factorial permutation combination f P C );
+%EXPORT_TAGS = (
+      all => [qw( factorial permutation combination f P C )],
+);
+$VERSION = 0.05;
 
+sub f { factorial(@_) }
 sub factorial {
     my( $n ) = @_;
     my $product = 1;
@@ -18,6 +22,7 @@ sub factorial {
     return $product;
 }
 
+sub P { permutation(@_) }
 sub permutation {
     my( $n, $r ) = @_;
     my $product = 1;
@@ -28,6 +33,7 @@ sub permutation {
     return $product;
 }
 
+sub C { combination(@_) }
 sub combination {
     my( $n, $r ) = @_;
     my $product = 1;
@@ -49,6 +55,9 @@ Math::Counting - Combinatorial counting operations
 =head1 SYNOPSIS
 
   use Math::Counting qw( factorial permutation combination );
+  # Also:
+  #use Math::Counting qw( f P C );
+  #use Math::Counting qw( :all );
 
   my $n = 42;
   my $r = 27;
@@ -71,30 +80,22 @@ precision," arithmetic.
 =head2 factorial
 
   $f = factorial($n);
+  $f = f($n);
 
 Return the number of arrangements of B<n>.
 
 =head2 permutation
 
   $p = permutation($n, $r);
+  $p = P($n, $r);
 
 Return the number of arrangements of B<r> elements drawn from a set of
-B<n> elements.  B<nPn> is the same as B<n!>
-
-The term "permutation" has a wide variety of definitions, like this
-confusing gem: "The number of permutations of a set of n elements is
-denoted n!  and pronounced 'n factorial.'"  However, here is an
-enlightening quote from a reference below:
-
-"In combinatorics, the term permutation has a traditional meaning,
-which is used to include ordered lists without repetition, but not
-exhaustive (so of less than maximum length)..."
-
-This package uses the combinatorial sense of the term.
+B<n> elements.  B<nPn> is the same as B<n!>.
 
 =head2 combination
 
   $c = combination($n, $r);
+  $c = C($n, $r);
 
 Return the number of ways to choose B<r> elements from a set of B<n>
 elements.
@@ -103,11 +104,7 @@ elements.
 
 Provide the gamma function for the factorial of non-integer numbers?
 
-Provide a way to use infinite precision arithmetic?
-
 =head1 SEE ALSO
-
-The C<bfac> function of the C<Math::BigInt> module.
 
 B<Higher Order Perl> by Mark Jason Dominus
 (L<http://hop.perl.plover.com/>).
@@ -115,7 +112,15 @@ B<Higher Order Perl> by Mark Jason Dominus
 B<Mastering Algorithms with Perl> by Orwant, Hietaniemi & Macdonald
 (L<http://www.oreilly.com/catalog/maperl/>).
 
-And L<http://encyclopedia.laborlawtalk.com/Permutation> actually.
+The B<bfac> function of the C<Math::BigInt> module.
+
+L<Algorithm::Combinatorics>
+
+L<String::OrderedCombination> for B<nPk> list generation.
+
+L<Math::Combinatorics> for B<nPn> and B<nCr> list generation.
+
+And L<http://encyclopedia.laborlawtalk.com/Permutation>, actually.
 
 =head1 AUTHOR
 

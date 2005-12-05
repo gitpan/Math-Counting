@@ -1,6 +1,12 @@
 Changes for Math::Counting
 
-0.04 Tue Nov 15, 2006
+0.05 Sun Dec 4, 2005
+    - Added f(), P() and C() convenience methods.
+    - Added the :all export tag.
+    - Added tests for exporting the shortnames and :all.
+    - Cleaned up the POD a bit, as usual.
+
+0.04 Tue Nov 15, 2005
     - Cleaned up the unit test.
     - Cleaned up the Makefile.PL a bit.
     - Cleaned up the POD.

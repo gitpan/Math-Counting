@@ -1,15 +1,22 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 30;
+use Test::More tests => 32;
 
+use lib 'lib';
+ 
+print "Long name export:\n";
 use_ok 'Math::Counting', qw(factorial permutation combination);
+print "Short names export:\n";
+use_ok 'Math::Counting', qw(f P C);
+print "All names exported:\n";
+use_ok 'Math::Counting', qw(:all);
 
 # This is not what I would call a rigorous test.  However, it works
 # and more importantly, 42 is the magic constant of the smallest magic
 # cube composed with the numbers 1 to 27.  And 27 is the first odd
-# perfect cube, apart from 1, so that's cool. Anyway, the commented
-# tests work but produce errors which "looks bad."
+# perfect cube, apart from the number, 1. Anyway, the commented tests
+# work fine but produce the expected errors.
 #
 my $x;
 my $n  = 42;
@@ -18,7 +25,7 @@ my $f  = 1.40500611775288e+51;
 my $f2 = 1.08888694504184e+28;
 my $p  = 1.07443118266648e+39;
 my $c  = 98_672_427_616;
-# These variables are for the working but "commented-out" tests below.
+# These variables work for the commented-out tests below.
 #my $nr = "$n.$r";
 #my $rn = "$r.$n";
 #my $f3 = 1.15779768813762e+51;
@@ -34,7 +41,7 @@ my $c  = 98_672_427_616;
 #$x = eval { factorial('foo') };
 #is $x, 1, "foo! == 1 and produces that error.";
 
-$x = eval { factorial(0 - $r) };
+$x = eval { f(0 - $r) };
 is $x, 1, "-$r! == 1";
 
 $x = eval { factorial(-1) };
@@ -59,7 +66,7 @@ is $x, $f, "$n! == $f";
 #is $x, $f3, "$nr! == $f3";
 
 # Permutation --------------------------------------------------------
-$x = eval { permutation(0 - $r, 0 - $n) };
+$x = eval { P(0 - $r, 0 - $n) };
 is $x, 1, "-$r P -$n == 1";
 
 $x = eval { permutation(0, 0) };
@@ -105,7 +112,7 @@ is $x, $f, "$n P $n == $f";
 #ok $x, "foo P bar doesn't make sense, does it?";
 
 # Combination --------------------------------------------------------
-$x = eval { combination(0 - $n, 0 - $r) };
+$x = eval { C(0 - $n, 0 - $r) };
 is $x, 1, "-$n C -$r == 1";
 
 $x = eval { combination(-1, 0) };
