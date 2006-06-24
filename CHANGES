@@ -1,5 +1,10 @@
 Changes for Math::Counting
 
+0.06 Sat Jun 24, 2006
+    - Replaced the :all export tag with :long and :short.
+    - Reorganized and updated the POD.
+    - Updated the test to use :long and :short.
+
 0.05 Sun Dec 4, 2005
     - Added f(), P() and C() convenience methods.
     - Added the :all export tag.

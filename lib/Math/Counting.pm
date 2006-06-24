@@ -1,16 +1,52 @@
-# $Id: Counting.pm,v 1.14 2005/12/05 03:35:18 gene Exp $
+# $Id: Counting.pm,v 1.15 2006/06/24 22:00:55 gene Exp $
+
+=head1 NAME
+
+Math::Counting - Combinatorial counting operations
+
+=head1 SYNOPSIS
+
+  use Math::Counting ':long';
+  my( $n, $r ) = ( 42, 27 );
+  printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
+    $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
+
+  use Math::Counting ':short';
+  my( $n, $r ) = ( 42, 27 );
+  printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
+    $n, $r, f($n), P($n, $r), C($n, $r);
+
+=head1 DESCRIPTION
+
+Compute the numerical factorial, number of permutations and number of
+combinations using the technique of "tail call elimination" as detailed
+in B<Higher Order Perl> and based on the algorithms in B<Mastering
+Algorithms with Perl>.
+
+Note that this code uses floating point, as opposed to "infinite
+precision," arithmetic.
+
+No functions are exported by default.  Additionally, there is no
+B<:all> target anymore, since I realized that no-one would ever use
+both short and long names together.
+
+=head1 FUNCTIONS
+
+=cut
 
 package Math::Counting;
 use strict;
 use warnings;
 use Carp;
 use base 'Exporter';
-use vars qw( @EXPORT %EXPORT_TAGS $VERSION );
-@EXPORT = qw( factorial permutation combination f P C );
+use vars qw( @EXPORT @EXPORT_OK %EXPORT_TAGS $VERSION );
+@EXPORT_OK = ();
+@EXPORT = qw( f P C factorial permutation combination );
 %EXPORT_TAGS = (
-      all => [qw( factorial permutation combination f P C )],
+      short => [qw( f P C )],
+      long  => [qw( factorial permutation combination )],
 );
-$VERSION = 0.05;
+$VERSION = 0.06;
 
 sub f { factorial(@_) }
 sub factorial {
@@ -21,6 +57,15 @@ sub factorial {
     }
     return $product;
 }
+
+=head2 factorial
+
+  $f = factorial($n);
+  $f = f($n);
+
+Return the number of arrangements of B<n>.
+
+=cut
 
 sub P { permutation(@_) }
 sub permutation {
@@ -33,6 +78,16 @@ sub permutation {
     return $product;
 }
 
+=head2 permutation
+
+  $p = permutation($n, $r);
+  $p = P($n, $r);
+
+Return the number of arrangements of B<r> elements drawn from a set of
+B<n> elements.  B<nPn> is the same as B<n!>.
+
+=cut
+
 sub C { combination(@_) }
 sub combination {
     my( $n, $r ) = @_;
@@ -44,54 +99,6 @@ sub combination {
     return $product;
 }
 
-1;
-
-__END__
-
-=head1 NAME
-
-Math::Counting - Combinatorial counting operations
-
-=head1 SYNOPSIS
-
-  use Math::Counting qw( factorial permutation combination );
-  # Also:
-  #use Math::Counting qw( f P C );
-  #use Math::Counting qw( :all );
-
-  my $n = 42;
-  my $r = 27;
-
-  printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
-    $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
-
-=head1 DESCRIPTION
-
-Compute the numerical factorial, number of permutations and number of
-combinations using the technique of "tail call elimination" as detailed
-in B<Higher Order Perl> and based on the algorithms in B<Mastering
-Algorithms with Perl>.
-
-Note that this code uses floating point, as opposed to "infinite
-precision," arithmetic.
-
-=head1 FUNCTIONS
-
-=head2 factorial
-
-  $f = factorial($n);
-  $f = f($n);
-
-Return the number of arrangements of B<n>.
-
-=head2 permutation
-
-  $p = permutation($n, $r);
-  $p = P($n, $r);
-
-Return the number of arrangements of B<r> elements drawn from a set of
-B<n> elements.  B<nPn> is the same as B<n!>.
-
 =head2 combination
 
   $c = combination($n, $r);
@@ -99,6 +106,12 @@ B<n> elements.  B<nPn> is the same as B<n!>.
 
 Return the number of ways to choose B<r> elements from a set of B<n>
 elements.
+
+=cut
+
+1;
+
+__END__
 
 =head1 TO DO
 
