@@ -1,5 +1,8 @@
 Changes for Math::Counting
 
+0.07 Mon Jun 18, 2007
+    - Use Math::Big for actual computation.
+
 0.06 Sat Jun 24, 2006
     - Replaced the :all export tag with :long and :short.
     - Reorganized and updated the POD.
