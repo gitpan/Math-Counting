@@ -1,5 +1,10 @@
 Changes for Math::Counting
 
+0.0701 Mon Jun 18, 2007
+    - Removed the Math::BigInt "try =>" bit until I figure out how to
+      use it properly.
+    - Fixed incomplete POD.
+
 0.07 Mon Jun 18, 2007
     - Use Math::Big for actual computation.
 

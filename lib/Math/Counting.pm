@@ -1,10 +1,15 @@
-# $Id: Counting.pm,v 1.17 2007/06/18 08:24:51 gene Exp $
+# $Id: Counting.pm,v 1.18 2007/06/18 23:53:25 gene Exp $
+
 package Math::Counting;
+
 use strict;
 use warnings;
 use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT_OK @EXPORT %EXPORT_TAGS $VERSION );
+use Math::BigInt; #try => 'GMP';
+
+$VERSION = 0.0701;
 @EXPORT_OK = ();
 @EXPORT = qw(
     f factorial bfact
@@ -16,10 +21,7 @@ use vars qw( @EXPORT_OK @EXPORT %EXPORT_TAGS $VERSION );
     long  => [qw( factorial permutation combination )],
     big   => [qw( bfact bperm bcomb )],
 );
-$VERSION = 0.07;
-use Math::BigInt try => 'GMP';
 
-# The student version:
 sub f { factorial(@_) }
 sub factorial {
     my( $n ) = @_;
@@ -83,32 +85,29 @@ Math::Counting - Combinatorial counting operations
 
 =head1 SYNOPSIS
 
-  # The algorithm student version:
+  ## The algorithm-student versions:
+
   use Math::Counting ':long';
-  my( $n, $r ) = ( 42, 27 );
   printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
     $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
+
   use Math::Counting ':short';
-  my( $n, $r ) = ( 42, 27 );
   printf "Given n=%d and r=%d:\nF=%d\nP=%d\nC=%d\n",
     $n, $r, f($n), P($n, $r), C($n, $r);
 
-  # The right way to do it:
+  ## The "Right way to do it":
+
   use Math::Counting ':big';
-  my( $n, $r ) = ( 42, 27 );
   printf "n=%d, r=%d:\nBig F=%d\n Big P=%d\nBig C=%d\n",
     $n, $r, bfact($n), bperm($n, $r), bcomb($n, $r);
 
 =head1 DESCRIPTION
 
 Compute the numerical factorial, number of n,r permutations and number
-of n,r combinations using the technique of "tail call elimination" as
-detailed in B<Higher Order Perl> and based on the algorithms in
+of n,r combinations using "infinate precision arithmetic" and also the
+technique of "tail call elimination" as detailed in
+B<Higher Order Perl> and based on the algorithms in
 B<Mastering Algorithms with Perl>.
-
-This code contains functions for both the "student" and "right way to
-do it" versions using real arithmetic and infinite precision
-arithmetic, respectively.
 
 No functions are exported by default.
 
@@ -140,7 +139,7 @@ the "student" version using real arithmetic.
 
 =head2 bperm
 
-  $p = bperm($n);
+  $p = bperm($n, $r);
 
 Return the C<Math::BigInt> computation: B<n!/(n-r)!>.
 
@@ -156,11 +155,14 @@ arithmetic.
 
 =head2 bcomb
 
-  $c = bcomb($n);
+  $c = bcomb($n, $r);
 
 Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>.
 
 =head1 TO DO
+
+Figure out how to allow the use of different C<BigInt> variations,
+like C<GMP>.
 
 Provide the gamma function for the factorial of non-integer numbers?
 
@@ -180,13 +182,15 @@ L<String::OrderedCombination> for B<nPk> list generation.
 
 L<Math::Combinatorics> for B<nPn> and B<nCr> list generation.
 
+L<http://en.wikipedia.org/wiki/Factorial>
+
 L<http://en.wikipedia.org/wiki/Permutation>
 
 L<http://en.wikipedia.org/wiki/Combination>
 
 =head1 AUTHOR
 
-E<lt>gene@cpan.orgE<gt> and others in the L<SEE ALSO> section.
+Not me. I am but a pebble on the beach...
 
 =head1 COPYRIGHT
 
