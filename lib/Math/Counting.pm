@@ -1,20 +1,18 @@
-# $Id: Counting.pm,v 1.18 2007/06/18 23:53:25 gene Exp $
-
+# $Id$
 package Math::Counting;
-
 use strict;
 use warnings;
-use Carp;
 use base 'Exporter';
 use vars qw( @EXPORT_OK @EXPORT %EXPORT_TAGS $VERSION );
+use Carp;
 use Math::BigInt; #try => 'GMP';
 
-$VERSION = 0.0701;
+$VERSION = 0.0703;
 @EXPORT_OK = ();
 @EXPORT = qw(
-    f factorial bfact
-    P permute permutation bperm
-    C choose combination bcomb
+    f  factorial    bfact
+    P  permutation  bperm
+    C  combination  bcomb
 );
 %EXPORT_TAGS = (
     short => [qw( f P C )],
@@ -38,7 +36,6 @@ sub bfact {
 }
 
 sub P { permutation(@_) }
-sub permute{ permutation(@_) }
 sub permutation {
     my( $n, $r ) = @_;
     my $product = 1;
@@ -57,7 +54,6 @@ sub bperm {
 }
 
 sub C { combination(@_) }
-sub choose { combination(@_) }
 sub combination {
     my( $n, $r ) = @_;
     my $product = 1;
@@ -103,11 +99,9 @@ Math::Counting - Combinatorial counting operations
 
 =head1 DESCRIPTION
 
-Compute the numerical factorial, number of n,r permutations and number
-of n,r combinations using "infinate precision arithmetic" and also the
-technique of "tail call elimination" as detailed in
-B<Higher Order Perl> and based on the algorithms in
-B<Mastering Algorithms with Perl>.
+This package computes the factorial, number of (n,r) permutations and
+(n,r) combinations using either L<Math::BigInt> and the technique of
+"tail call elimination" (TCE).
 
 No functions are exported by default.
 
@@ -118,8 +112,7 @@ No functions are exported by default.
   $f = f($n);
   $f = factorial($n);
 
-Return the number of arrangements of B<n> according to the "student"
-version using real arithmetic.
+Return the number of arrangements of B<n> with TCE.
 
 =head2 bfact
 
@@ -134,8 +127,7 @@ Return the value of the L<Math::BigInt/bfact> function, which is the
   $p = permutation($n, $r);
 
 Return the number of arrangements of B<r> elements drawn from a set of
-B<n> elements.  B<nPn> is the same as B<n!>.  This function employs
-the "student" version using real arithmetic.
+B<n> elements with TCE.  (B<nPn> is the same as B<n!>.)
 
 =head2 bperm
 
@@ -150,8 +142,7 @@ Return the C<Math::BigInt> computation: B<n!/(n-r)!>.
   $c = combination($n, $r);
 
 Return the number of ways to choose B<r> elements from a set of B<n>
-elements.  This function employs the "student" version using real
-arithmetic.
+elements with TCE.
 
 =head2 bcomb
 
@@ -194,7 +185,7 @@ Not me. I am but a pebble on the beach...
 
 =head1 COPYRIGHT
 
-Copyright 2005 Gene Boggs All Rights Reserved
+Copyright 2007 Gene Boggs All Rights Reserved
 
 You may use this package under the same terms as Perl itself.
 
