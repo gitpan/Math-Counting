@@ -1,11 +1,12 @@
 --- #YAML:1.0
 name:                Math-Counting
-version:             0.0703
+version:             0.0704
 abstract:            Combinatorial counting operations
 license:             ~
 generated_by:        ExtUtils::MakeMaker version 6.36
 distribution_type:   module
 requires:     
+    Math::BigInt:                  0
 meta-spec:
     url:     http://module-build.sourceforge.net/META-spec-v1.2.html
     version: 1.2

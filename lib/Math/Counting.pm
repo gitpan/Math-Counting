@@ -7,7 +7,7 @@ use vars qw( @EXPORT_OK @EXPORT %EXPORT_TAGS $VERSION );
 use Carp;
 use Math::BigInt; #try => 'GMP';
 
-$VERSION = 0.0703;
+$VERSION = 0.0704;
 @EXPORT_OK = ();
 @EXPORT = qw(
     f  factorial    bfact

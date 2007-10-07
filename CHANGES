@@ -1,5 +1,8 @@
 Changes for Math::Counting
 
+0.0704 Sun Oct 7, 2007
+    - Oops. Require Math::BigInt. Duhh.
+
 0.0703 Fri Oct 5, 2007
     - Removed hideous typos. :~(
     - Simplified documentation.
