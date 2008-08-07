@@ -1,4 +1,4 @@
-# $Id: Counting.pm 919 2008-08-07 19:13:23Z gene $
+# $Id$
 package Math::Counting;
 our $VERSION = '0.08';
 

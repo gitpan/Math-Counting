@@ -1,12 +1,11 @@
 Changes for Math::Counting
 
-0.0704 Sun Oct 7, 2007
-    - Oops. Require Math::BigInt. Duhh.
+0.08 Thu Aug 8, 2008
+    - Fixed the broken/wtf? test.
+    - Added defined && /^\d+$/ tests to the student subroutines.
 
-0.0703 Fri Oct 5, 2007
-    - Removed hideous typos. :~(
-    - Simplified documentation.
-    - Cleaned-out some code cruft but changed no functionality.
+0.0702 Mon Dec 3, 2007
+    - Whoops. Need require 5.6 in the makefile.
 
 0.0701 Mon Jun 18, 2007
     - Removed the Math::BigInt "try =>" bit until I figure out how to

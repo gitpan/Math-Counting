@@ -1,14 +1,10 @@
---- #YAML:1.0
-name:                Math-Counting
-version:             0.0704
-abstract:            Combinatorial counting operations
-license:             ~
-generated_by:        ExtUtils::MakeMaker version 6.36
-distribution_type:   module
-requires:     
-    Math::BigInt:                  0
-meta-spec:
-    url:     http://module-build.sourceforge.net/META-spec-v1.2.html
-    version: 1.2
-author:
-    - Gene Boggs <gene@cpan.org>
+# http://module-build.sourceforge.net/META-spec.html
+#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
+name:         Math-Counting
+version:      0.08
+version_from: lib/Math/Counting.pm
+installdirs:  site
+requires:
+
+distribution_type: module
+generated_by: ExtUtils::MakeMaker version 6.30
