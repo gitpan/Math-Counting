@@ -1,6 +1,6 @@
 # $Id$
 package Math::Counting;
-our $VERSION = '0.08';
+our $VERSION = '0.0801';
 
 use strict;
 use warnings;
@@ -95,12 +95,9 @@ Math::Counting - Combinatorial counting operations
 =head1 DESCRIPTION
 
 Compute the numerical factorial, number of n,r permutations and number
-of n,r combinations using "infinate precision arithmetic" and also the
-technique of "tail call elimination" as detailed in
-B<Higher Order Perl> and based on the algorithms in
+of n,r combinations using C<Math::BigInt> and also the technique of
+"tail call elimination" as described in B<Higher Order Perl> and 
 B<Mastering Algorithms with Perl>.
-
-No functions are exported by default.
 
 =head1 FUNCTIONS
 
@@ -115,7 +112,7 @@ version using real arithmetic.
 
   $f = bfact($n);
 
-Return the value of the L<Math::BigInt/bfact> function, which is the
+Return the value of the L<Math::BigInt/bfac> function, which is the
 "Right Way To Do It."
 
 =head2 permutation
@@ -148,20 +145,20 @@ Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>.
 
 =head1 TO DO
 
-Figure out how to allow the use of different C<BigInt> variations,
-like C<GMP>.
+Figure out how to allow the use of different C<Math::BigInt>
+variations, like C<GMP>.
 
 Provide the gamma function for the factorial of non-integer numbers?
 
 =head1 SEE ALSO
+
+L<Math::BigInt/bfac>
 
 B<Higher Order Perl> by Mark Jason Dominus
 (L<http://hop.perl.plover.com/>).
 
 B<Mastering Algorithms with Perl> by Orwant, Hietaniemi & Macdonald
 (L<http://www.oreilly.com/catalog/maperl/>).
-
-The B<bfac> function of the C<Math::BigInt> module.
 
 L<Algorithm::Combinatorics>
 
@@ -181,7 +178,7 @@ Gene Boggs E<lt>gene@cpan.orgE<gt>
 
 =head1 COPYRIGHT
 
-Copyright 2005-2007 Gene Boggs All Rights Reserved
+Copyright 2005-2008 Gene Boggs All Rights Reserved
 
 You may use this package under the same terms as Perl itself.
 

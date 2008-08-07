@@ -1,5 +1,8 @@
 Changes for Math::Counting
 
+0.0801 Thu Aug 8, 2008
+    - Fixed documentation.
+
 0.08 Thu Aug 8, 2008
     - Fixed the broken/wtf? test.
     - Added defined && /^\d+$/ tests to the student subroutines.
