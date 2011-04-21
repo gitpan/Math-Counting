@@ -1,7 +1,9 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More tests => 64;
+use Test::More 'no_plan';
+
+use_ok 'Math::Counting';
 
 # This is not a rigorous test.  However, it works.  More importantly,
 # 42 is the magic constant of the smallest magic cube composed with
@@ -20,8 +22,6 @@ my $nan = 'NaN';
 
 # Factorial  ---------------------------------------------------------
 
-use_ok 'Math::Counting', ':student';
-diag('student');
 $x = eval { factorial() };
 is $x, undef, 'undef! == undef';
 $x = eval { factorial('foo') };
@@ -97,8 +97,6 @@ is $x, 1, "$n C $n == 1";
 
 # Factorial  ---------------------------------------------------------
 
-use_ok 'Math::Counting', ':big';
-diag('bigint');
 $x = eval { bfact(0 - $r) };
 is $x, $nan, "-$r! == $nan";
 $x = eval { bfact(-1) };

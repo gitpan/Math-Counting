@@ -1,10 +1,18 @@
-# http://module-build.sourceforge.net/META-spec.html
-#XXXXXXX This is a prototype!!!  It will change in the future!!! XXXXX#
-name:         Math-Counting
-version:      0.0801
-version_from: lib/Math/Counting.pm
-installdirs:  site
+---
+abstract: 'Combinatorial counting operations'
+author:
+  - 'Gene Boggs <gene@cpan.org>'
+build_requires:
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.200004, CPAN::Meta::Converter version 2.110930'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Math-Counting
 requires:
-
-distribution_type: module
-generated_by: ExtUtils::MakeMaker version 6.30
+  Math::BigInt: 0
+version: 0.09

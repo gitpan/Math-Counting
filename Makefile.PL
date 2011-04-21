@@ -1,15 +1,53 @@
-#!/usr/bin/perl
-require 5.006001;
+
 use strict;
 use warnings;
-use ExtUtils::MakeMaker;
-WriteMakefile(
-    NAME => 'Math::Counting',
-    VERSION_FROM => 'lib/Math/Counting.pm',
-    PREREQ_PM => {},
-    ( $] >= 5.005
-        ? (ABSTRACT_FROM => 'lib/Math/Counting.pm',
-           AUTHOR => 'Gene Boggs <gene@cpan.org>')
-        : ()
-    ),
+
+
+
+use ExtUtils::MakeMaker 6.31;
+
+
+
+my %WriteMakefileArgs = (
+  'ABSTRACT' => 'Combinatorial counting operations',
+  'AUTHOR' => 'Gene Boggs <gene@cpan.org>',
+  'BUILD_REQUIRES' => {
+    'Test::More' => '0'
+  },
+  'CONFIGURE_REQUIRES' => {
+    'ExtUtils::MakeMaker' => '6.31'
+  },
+  'DISTNAME' => 'Math-Counting',
+  'EXE_FILES' => [],
+  'LICENSE' => 'perl',
+  'NAME' => 'Math::Counting',
+  'PREREQ_PM' => {
+    'Math::BigInt' => '0'
+  },
+  'VERSION' => '0.09',
+  'test' => {
+    'TESTS' => 't/*.t'
+  }
 );
+
+
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
+  my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
+  for my $mod ( keys %$br ) {
+    if ( exists $pp->{$mod} ) {
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
+    }
+    else {
+      $pp->{$mod} = $br->{$mod};
+    }
+  }
+}
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
+
+WriteMakefile(%WriteMakefileArgs);
+
+
+

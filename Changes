@@ -1,5 +1,9 @@
 Changes for Math::Counting
 
+0.09 Wed Apr 20, 2011
+    - Let's specifiy the module prerequisite this time!
+    - Minimized distribution bulk and maintenance tasks with Dist::Zilla.
+
 0.0801 Thu Aug 8, 2008
     - Fixed documentation.
 

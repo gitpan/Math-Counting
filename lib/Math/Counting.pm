@@ -1,22 +1,16 @@
-# $Id: Counting.pm 920 2008-08-07 23:02:04Z gene $
 package Math::Counting;
-our $VERSION = '0.0801';
-
 use strict;
 use warnings;
-use Carp;
-use base 'Exporter';
-use vars qw( @EXPORT %EXPORT_TAGS );
 use Math::BigInt;
-
-@EXPORT = qw(
-    factorial   bfact
-    permutation bperm
-    combination bcomb
+our $VERSION = '0.09';
+our @ISA = qw(Exporter);
+our @EXPORT = qw(
+    factorial permutation combination
+    bfact     bperm       bcomb
 );
-%EXPORT_TAGS = (
+our %EXPORT_TAGS = (
     student => [qw( factorial permutation combination )],
-    big =>     [qw( bfact     bperm       bcomb )],
+    big     => [qw( bfact     bperm       bcomb )],
 );
 
 # The algorithmically elegant way:
@@ -84,20 +78,18 @@ Math::Counting - Combinatorial counting operations
 
 =head1 SYNOPSIS
 
-  use Math::Counting ':student';
+  use Math::Counting ':student'; # Logical, Academic
   printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
     $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
 
-  use Math::Counting ':big';
+  use Math::Counting ':big'; # Engineering, Reality
   printf "n=%d, r=%d:\nBig F=%d\n Big P=%d\nBig C=%d\n",
     $n, $r, bfact($n), bperm($n, $r), bcomb($n, $r);
 
 =head1 DESCRIPTION
 
-Compute the numerical factorial, number of n,r permutations and number
-of n,r combinations using C<Math::BigInt> and also the technique of
-"tail call elimination" as described in B<Higher Order Perl> and 
-B<Mastering Algorithms with Perl>.
+Compute the factorial, number of permutations and number of
+combinations for engineers and CS students.
 
 =head1 FUNCTIONS
 
@@ -121,27 +113,26 @@ Return the value of the L<Math::BigInt/bfac> function, which is the
 
 Return the number of arrangements of B<r> elements drawn from a set of
 B<n> elements.  B<nPn> is the same as B<n!>.  This function employs
-the "student" version using real arithmetic.
+the "student" version.
 
 =head2 bperm
 
   $p = bperm($n, $r);
 
-Return the C<Math::BigInt> computation: B<n!/(n-r)!>.
+Return the C<Math::BigInt> computation: B<n!/(n-r)!>
 
 =head2 combination
 
   $c = combination($n, $r);
 
 Return the number of ways to choose B<r> elements from a set of B<n>
-elements.  This function employs the "student" version using real
-arithmetic.
+elements using the "student" version."
 
 =head2 bcomb
 
   $c = bcomb($n, $r);
 
-Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>.
+Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>
 
 =head1 TO DO
 
@@ -155,16 +146,10 @@ Provide the gamma function for the factorial of non-integer numbers?
 L<Math::BigInt/bfac>
 
 B<Higher Order Perl> by Mark Jason Dominus
-(L<http://hop.perl.plover.com/>).
+(L<http://hop.perl.plover.com>).
 
 B<Mastering Algorithms with Perl> by Orwant, Hietaniemi & Macdonald
-(L<http://www.oreilly.com/catalog/maperl/>).
-
-L<Algorithm::Combinatorics>
-
-L<String::OrderedCombination> for B<nPk> list generation.
-
-L<Math::Combinatorics> for B<nPn> and B<nCr> list generation.
+(L<http://www.oreilly.com/catalog/maperl>).
 
 L<http://en.wikipedia.org/wiki/Factorial>
 
@@ -172,14 +157,31 @@ L<http://en.wikipedia.org/wiki/Permutation>
 
 L<http://en.wikipedia.org/wiki/Combination>
 
-=head1 AUTHOR
+Naturally, there are a plethora of combinatorics packages available,
+take your pick:
+
+L<Algorithm::Combinatorics>,
+L<Algorithm::Loops>,
+L<Algorithm::Permute>,
+L<CM::Group::Sym>,
+L<CM::Permutation>,
+L<Games::Word>,
+L<List::Permutor,
+L<Math::Combinatorics>,
+L<Math::GSL::Permutation>,
+L<Math::Permute::List>,
+L<String::Glob::Permute>,
+L<String::OrderedCombination>
+
+=head1 AUTHOR AND COPYRIGHT
 
 Gene Boggs E<lt>gene@cpan.orgE<gt>
 
-=head1 COPYRIGHT
+Copyright 2011, Gene Boggs, All Rights Reserved.
 
-Copyright 2005-2008 Gene Boggs All Rights Reserved
+=head1 LICENSE
 
-You may use this package under the same terms as Perl itself.
+This program is free software; you can redistribute or modify it
+under the same terms as Perl itself.
 
 =cut
