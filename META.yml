@@ -15,4 +15,4 @@ meta-spec:
 name: Math-Counting
 requires:
   Math::BigInt: 0
-version: 0.09
+version: 0.0901

@@ -1,5 +1,9 @@
 Changes for Math::Counting
 
+0.0901 Sun May 22, 2011
+    - Properly import when testing.
+    - Decreased digits of precision in test.
+
 0.09 Wed Apr 20, 2011
     - Let's specifiy the module prerequisite this time!
     - Minimized distribution bulk and maintenance tasks with Dist::Zilla.

@@ -3,20 +3,20 @@ use strict;
 use warnings;
 use Test::More 'no_plan';
 
-use_ok 'Math::Counting';
+use_ok 'Math::Counting', qw(:student :big);
 
 # This is not a rigorous test.  However, it works.  More importantly,
 # 42 is the magic constant of the smallest magic cube composed with
 # the numbers 1 to 27.  And 27 is the first odd perfect cube, apart
 # from the number, 1.
 
-my $format = '%.14e';
+my $format = '%.10e';
 my $x;
 my $n   = 42;
 my $r   = 27;
-my $f   = 1.40500611775288e+51;
-my $f2  = 1.08888694504184e+28;
-my $p   = 1.07443118266648e+39;
+my $f   = '1.4050061178e+51';
+my $f2  = '1.0888869450e+28';
+my $p   = '1.0744311827e+39';
 my $c   = 98_672_427_616;
 my $nan = 'NaN';
 

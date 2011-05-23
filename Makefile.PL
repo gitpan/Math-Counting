@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'Math::BigInt' => '0'
   },
-  'VERSION' => '0.09',
+  'VERSION' => '0.0901',
   'test' => {
     'TESTS' => 't/*.t'
   }
