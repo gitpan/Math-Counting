@@ -14,9 +14,9 @@ my $format = '%.10e';
 my $x;
 my $n   = 42;
 my $r   = 27;
-my $f   = '1.4050061178e+51';
-my $f2  = '1.0888869450e+28';
-my $p   = '1.0744311827e+39';
+my $f   = qr/^1\.4050061178e\+0?51$/;
+my $f2  = qr/^1\.0888869450e\+0?28$/;
+my $p   = qr/^1\.0744311827e\+0?39$/;
 my $c   = 98_672_427_616;
 my $nan = 'NaN';
 
@@ -37,9 +37,9 @@ is $x, 1, "1! == 1";
 $x = eval { factorial(2) };
 is $x, 2, "2! == 2";
 $x = eval { sprintf $format, factorial($r) };
-is $x, $f2, "$r! == $f2";
+like $x, $f2, "$r! is $f2";
 $x = eval { sprintf $format, factorial($n) };
-is $x, $f, "$n! == $f";
+like $x, $f, "$n! == $f";
 
 # Permutation --------------------------------------------------------
 
@@ -60,13 +60,13 @@ is $x, 1, "1 P 0 == 1";
 $x = eval { permutation(1, 1) };
 is $x, 1, "1 P 1 == 1";
 $x = eval { sprintf $format, permutation($r, $r) };
-is $x, $f2, "$r P $r == $f2";
+like $x, $f2, "$r P $r == $f2";
 $x = eval { permutation($r, $n) };
 is $x, 0, "$r P $n == 0";
 $x = eval { sprintf $format, permutation($n, $r) };
-is $x, $p, "$n P $r == $p";
+like $x, $p, "$n P $r == $p";
 $x = eval { sprintf $format, permutation($n, $n) };
-is $x, $f, "$n P $n == $f";
+like $x, $f, "$n P $n == $f";
 
 # Combination --------------------------------------------------------
 
@@ -108,9 +108,9 @@ is $x, 1, "1! == 1";
 $x = eval { bfact(2) };
 is $x, 2, "2! == 2";
 $x = eval { sprintf $format, bfact($r) };
-is $x, $f2, "$r! == $f2";
+like $x, $f2, "$r! == $f2";
 $x = eval { sprintf $format, bfact($n) };
-is $x, $f, "$n! == $f";
+like $x, $f, "$n! == $f";
 
 # Permutation --------------------------------------------------------
 
@@ -129,13 +129,13 @@ is $x, 1, "1 bperm 0 == 1";
 $x = eval { bperm(1, 1) };
 is $x, 1, "1 bperm 1 == 1";
 $x = eval { sprintf $format, bperm($r, $r) };
-is $x, $f2, "$r bperm $r == $f2";
+like $x, $f2, "$r bperm $r == $f2";
 $x = eval { bperm($r, $n) };
 is $x, $nan, "$r bperm $n == $nan";
 $x = eval { sprintf $format, bperm($n, $r) };
-is $x, $p, "$n bperm $r == $p";
+like $x, $p, "$n bperm $r == $p";
 $x = eval { sprintf $format, bperm($n, $n) };
-is $x, $f, "$n bperm $n == $f";
+like $x, $f, "$n bperm $n == $f";
 
 # Combination --------------------------------------------------------
 

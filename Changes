@@ -1,5 +1,9 @@
 Changes for Math::Counting
 
+0.0902 Thu May 26, 2011
+    - Account for system dependent sprintf %e format return values
+      when testing. LeoNerd++
+
 0.0901 Sun May 22, 2011
     - Properly import when testing.
     - Decreased digits of precision in test.

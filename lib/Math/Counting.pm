@@ -2,7 +2,7 @@ package Math::Counting;
 use strict;
 use warnings;
 use Math::BigInt;
-our $VERSION = '0.0901';
+our $VERSION = '0.0902';
 our @ISA = qw(Exporter);
 our @EXPORT = qw(
     factorial permutation combination
