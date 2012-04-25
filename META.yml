@@ -7,12 +7,16 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.200006, CPAN::Meta::Converter version 2.110930'
+generated_by: 'Dist::Zilla version 4.300014, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Math-Counting
 requires:
+  Exporter: 0
   Math::BigInt: 0
-version: 0.0902
+  parent: 0
+  strict: 0
+  warnings: 0
+version: 0.0903

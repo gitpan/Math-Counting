@@ -9,24 +9,28 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Combinatorial counting operations',
-  'AUTHOR' => 'Gene Boggs <gene@cpan.org>',
-  'BUILD_REQUIRES' => {
-    'Test::More' => '0'
+  "ABSTRACT" => "Combinatorial counting operations",
+  "AUTHOR" => "Gene Boggs <gene\@cpan.org>",
+  "BUILD_REQUIRES" => {
+    "Test::More" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.30'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Math-Counting',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'Math::Counting',
-  'PREREQ_PM' => {
-    'Math::BigInt' => '0'
+  "DISTNAME" => "Math-Counting",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Math::Counting",
+  "PREREQ_PM" => {
+    "Exporter" => 0,
+    "Math::BigInt" => 0,
+    "parent" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '0.0902',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.0903",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 

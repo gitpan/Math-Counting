@@ -2,8 +2,8 @@ package Math::Counting;
 use strict;
 use warnings;
 use Math::BigInt;
-our $VERSION = '0.0902';
-our @ISA = qw(Exporter);
+our $VERSION = '0.0903';
+use parent qw(Exporter);
 our @EXPORT = qw(
     factorial permutation combination
     bfact     bperm       bcomb

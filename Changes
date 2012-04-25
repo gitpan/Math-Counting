@@ -1,5 +1,8 @@
 Changes for Math::Counting
 
+0.0903 Wed Apr 25, 2012
+    - Added missing Export require statement.
+
 0.0902 Thu May 26, 2011
     - Account for system dependent sprintf %e format return values
       when testing. LeoNerd++
