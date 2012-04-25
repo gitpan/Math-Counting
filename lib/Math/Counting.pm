@@ -2,9 +2,9 @@ package Math::Counting;
 use strict;
 use warnings;
 use Math::BigInt;
-our $VERSION = '0.0903';
+our $VERSION = '0.0904';
 use parent qw(Exporter);
-our @EXPORT = qw(
+our @EXPORT_OK = qw(
     factorial permutation combination
     bfact     bperm       bcomb
 );
