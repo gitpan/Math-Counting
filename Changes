@@ -1,7 +1,12 @@
 Changes for Math::Counting
 
+0.0905 Wed Apr 26, 2012
+    - Explicitly export nothing by default.
+    - Add a friendly CREDITS section to the POD.
+    - Repaired and reorganized POD.
+
 0.0904 Wed Apr 25, 2012
-    Allow individual functions to be exported, also.
+    - Allow individual functions to be exported, also.
 
 0.0903 Wed Apr 25, 2012
     - Added missing Export require statement.
@@ -62,7 +67,7 @@ Changes for Math::Counting
     - oof. Forgot to fix-up the tests=>flag
 
 0.03 Wed Oct 26, 2005
-    - Reseached the permutation function again and found that I was
+    - Researched the permutation function again and found that I was
       still correct. 
     - Cleaned up POD.
     - Added a slew of goofy edge-case tests.

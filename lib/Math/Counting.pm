@@ -1,9 +1,12 @@
 package Math::Counting;
+
+our $VERSION = '0.0905';
+
 use strict;
 use warnings;
-use Math::BigInt;
-our $VERSION = '0.0904';
+
 use parent qw(Exporter);
+our @EXPORT = ();
 our @EXPORT_OK = qw(
     factorial permutation combination
     bfact     bperm       bcomb
@@ -13,64 +16,7 @@ our %EXPORT_TAGS = (
     big     => [qw( bfact     bperm       bcomb )],
 );
 
-# The algorithmically elegant way:
-sub factorial {
-    my( $n ) = @_;
-    return unless defined $n && $n =~ /^\d+$/;
-    my $product = 1;
-    while( $n > 0 ) {
-        $product *= $n--;
-    }
-    return $product;
-}
-
-# The right way to do it:
-sub bfact {
-    my $n = Math::BigInt->new( shift );
-    return $n->bfac();
-}
-
-sub permutation {
-    my( $n, $r ) = @_;
-    return unless defined $n && $n =~ /^\d+$/ && defined $r && $r =~ /^\d+$/;
-    my $product = 1;
-    while( $r > 0 ) {
-        $product *= $n--;
-        $r--;
-    }
-    return $product;
-}
-
-sub bperm {
-    my( $n, $r ) = @_;
-    $n = Math::BigInt->new( $n );
-    $r = Math::BigInt->new( $r );
-    $r = $n - $r;
-    return $n->bfac() / $r->bfac();
-}
-
-sub combination {
-    my( $n, $r ) = @_;
-    return unless defined $n && $n =~ /^\d+$/ && defined $r && $r =~ /^\d+$/;
-    my $product = 1;
-    while( $r > 0 ) {
-        $product *= $n--;
-        $product /= $r--;
-    }
-    return $product;
-}
-
-sub bcomb {
-    my( $n, $k ) = @_;
-    $n = Math::BigInt->new( $n );
-    $k = Math::BigInt->new( $k );
-    my $r = $n - $k;
-    return $n->bfac() / ($k->bfac() * $r->bfac());
-}
-
-1;
-
-__END__
+use Math::BigInt;
 
 =head1 NAME
 
@@ -89,7 +35,12 @@ Math::Counting - Combinatorial counting operations
 =head1 DESCRIPTION
 
 Compute the factorial, number of permutations and number of
-combinations for engineers and CS students.
+combinations for either engineers or CS students.
+
+The engineer (i.e. C<:big>) version is a "thin wrapper" around
+L<Math::BigInt/bfac>, and a bit of arithmatic.
+
+The student version exists to illustrate the computation.
 
 =head1 FUNCTIONS
 
@@ -97,8 +48,20 @@ combinations for engineers and CS students.
 
   $f = factorial($n);
 
-Return the number of arrangements of B<n> according to the "student"
-version using real arithmetic.
+Return the number of arrangements of B<n> according to the
+algorithmically elegant "student" version using real arithmetic.
+
+=cut
+
+sub factorial {
+    my( $n ) = @_;
+    return unless defined $n && $n =~ /^\d+$/;
+    my $product = 1;
+    while( $n > 0 ) {
+        $product *= $n--;
+    }
+    return $product;
+}
 
 =head2 bfact
 
@@ -106,6 +69,13 @@ version using real arithmetic.
 
 Return the value of the L<Math::BigInt/bfac> function, which is the
 "Right Way To Do It."
+
+=cut
+
+sub bfact {
+    my $n = Math::BigInt->new( shift );
+    return $n->bfac();
+}
 
 =head2 permutation
 
@@ -115,11 +85,34 @@ Return the number of arrangements of B<r> elements drawn from a set of
 B<n> elements.  B<nPn> is the same as B<n!>.  This function employs
 the "student" version.
 
+=cut
+
+sub permutation {
+    my( $n, $r ) = @_;
+    return unless defined $n && $n =~ /^\d+$/ && defined $r && $r =~ /^\d+$/;
+    my $product = 1;
+    while( $r > 0 ) {
+        $product *= $n--;
+        $r--;
+    }
+    return $product;
+}
+
 =head2 bperm
 
   $p = bperm($n, $r);
 
 Return the C<Math::BigInt> computation: B<n!/(n-r)!>
+
+=cut
+
+sub bperm {
+    my( $n, $r ) = @_;
+    $n = Math::BigInt->new( $n );
+    $r = Math::BigInt->new( $r );
+    $r = $n - $r;
+    return $n->bfac() / $r->bfac();
+}
 
 =head2 combination
 
@@ -128,11 +121,37 @@ Return the C<Math::BigInt> computation: B<n!/(n-r)!>
 Return the number of ways to choose B<r> elements from a set of B<n>
 elements using the "student" version."
 
+=cut
+
+sub combination {
+    my( $n, $r ) = @_;
+    return unless defined $n && $n =~ /^\d+$/ && defined $r && $r =~ /^\d+$/;
+    my $product = 1;
+    while( $r > 0 ) {
+        $product *= $n--;
+        $product /= $r--;
+    }
+    return $product;
+}
+
 =head2 bcomb
 
   $c = bcomb($n, $r);
 
 Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>
+
+=cut
+
+sub bcomb {
+    my( $n, $k ) = @_;
+    $n = Math::BigInt->new( $n );
+    $k = Math::BigInt->new( $k );
+    my $r = $n - $k;
+    return $n->bfac() / ($k->bfac() * $r->bfac());
+}
+
+1;
+__END__
 
 =head1 TO DO
 
@@ -166,18 +185,26 @@ L<Algorithm::Permute>,
 L<CM::Group::Sym>,
 L<CM::Permutation>,
 L<Games::Word>,
-L<List::Permutor,
+L<List::Permutor>,
 L<Math::Combinatorics>,
 L<Math::GSL::Permutation>,
 L<Math::Permute::List>,
 L<String::Glob::Permute>,
 L<String::OrderedCombination>
 
+=head1 CREDITS
+
+Special thanks to:
+
+* Paul Evans
+
+* Mike Pomraning
+
 =head1 AUTHOR AND COPYRIGHT
 
 Gene Boggs E<lt>gene@cpan.orgE<gt>
 
-Copyright 2011, Gene Boggs, All Rights Reserved.
+Copyright 2012, Gene Boggs, All Rights Reserved.
 
 =head1 LICENSE
 
