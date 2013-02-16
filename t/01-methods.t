@@ -5,18 +5,18 @@ use Test::More 'no_plan';
 
 use_ok 'Math::Counting', qw(:student :big);
 
-# This is not a rigorous test.  However, it works.  More importantly,
+# This is not the most rigorous test.
 # 42 is the magic constant of the smallest magic cube composed with
 # the numbers 1 to 27.  And 27 is the first odd perfect cube, apart
 # from the number, 1.
 
-my $format = '%.10e';
+my $format = '%.8e';
 my $x;
 my $n   = 42;
 my $r   = 27;
-my $f   = qr/^1\.4050061178e\+0?51$/;
-my $f2  = qr/^1\.0888869450e\+0?28$/;
-my $p   = qr/^1\.0744311827e\+0?39$/;
+my $f   = '1.40500612e+51';
+my $f2  = '1.08888695e+28';
+my $p   = '1.07443118e+39';
 my $c   = 98_672_427_616;
 my $nan = 'NaN';
 
@@ -37,9 +37,9 @@ is $x, 1, "1! == 1";
 $x = eval { factorial(2) };
 is $x, 2, "2! == 2";
 $x = eval { sprintf $format, factorial($r) };
-like $x, $f2, "$r! is $f2";
+is $x, $f2, "$r! is $f2";
 $x = eval { sprintf $format, factorial($n) };
-like $x, $f, "$n! == $f";
+is $x, $f, "$n! == $f";
 
 # Permutation --------------------------------------------------------
 
@@ -60,13 +60,13 @@ is $x, 1, "1 P 0 == 1";
 $x = eval { permutation(1, 1) };
 is $x, 1, "1 P 1 == 1";
 $x = eval { sprintf $format, permutation($r, $r) };
-like $x, $f2, "$r P $r == $f2";
+is $x, $f2, "$r P $r == $f2";
 $x = eval { permutation($r, $n) };
 is $x, 0, "$r P $n == 0";
 $x = eval { sprintf $format, permutation($n, $r) };
-like $x, $p, "$n P $r == $p";
+is $x, $p, "$n P $r == $p";
 $x = eval { sprintf $format, permutation($n, $n) };
-like $x, $f, "$n P $n == $f";
+is $x, $f, "$n P $n == $f";
 
 # Combination --------------------------------------------------------
 
@@ -108,9 +108,9 @@ is $x, 1, "1! == 1";
 $x = eval { bfact(2) };
 is $x, 2, "2! == 2";
 $x = eval { sprintf $format, bfact($r) };
-like $x, $f2, "$r! == $f2";
+is $x, $f2, "$r! == $f2";
 $x = eval { sprintf $format, bfact($n) };
-like $x, $f, "$n! == $f";
+is $x, $f, "$n! == $f";
 
 # Permutation --------------------------------------------------------
 
@@ -129,13 +129,13 @@ is $x, 1, "1 bperm 0 == 1";
 $x = eval { bperm(1, 1) };
 is $x, 1, "1 bperm 1 == 1";
 $x = eval { sprintf $format, bperm($r, $r) };
-like $x, $f2, "$r bperm $r == $f2";
+is $x, $f2, "$r bperm $r == $f2";
 $x = eval { bperm($r, $n) };
 is $x, $nan, "$r bperm $n == $nan";
 $x = eval { sprintf $format, bperm($n, $r) };
-like $x, $p, "$n bperm $r == $p";
+is $x, $p, "$n bperm $r == $p";
 $x = eval { sprintf $format, bperm($n, $n) };
-like $x, $f, "$n bperm $n == $f";
+is $x, $f, "$n bperm $n == $f";
 
 # Combination --------------------------------------------------------
 

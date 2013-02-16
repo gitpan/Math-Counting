@@ -1,5 +1,9 @@
 Changes for Math::Counting
 
+{{$NEXT}}
+    - Added Test::PodSpelling to dist.ini.
+    - Reduce the precision of the test values by two places.
+
 0.0905 Wed Apr 26, 2012
     - Explicitly export nothing by default.
     - Add a friendly CREDITS section to the POD.

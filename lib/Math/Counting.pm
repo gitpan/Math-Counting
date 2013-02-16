@@ -1,6 +1,6 @@
 package Math::Counting;
 
-our $VERSION = '0.0905';
+our $VERSION = '0.0906';
 
 use strict;
 use warnings;
@@ -38,7 +38,7 @@ Compute the factorial, number of permutations and number of
 combinations for either engineers or CS students.
 
 The engineer (i.e. C<:big>) version is a "thin wrapper" around
-L<Math::BigInt/bfac>, and a bit of arithmatic.
+L<Math::BigInt/bfac>, and a bit of arithmetic.
 
 The student version exists to illustrate the computation.
 
