@@ -7,6 +7,6 @@ README
 dist.ini
 lib/Math/Counting.pm
 t/00-load.t
-t/01-methods.t
+t/01-functions.t
 t/author-pod-spell.t
 t/release-pod-coverage.t

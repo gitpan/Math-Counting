@@ -1,6 +1,7 @@
 package Math::Counting;
+# ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.0906';
+our $VERSION = '0.0907';
 
 use strict;
 use warnings;
@@ -18,40 +19,6 @@ our %EXPORT_TAGS = (
 
 use Math::BigInt;
 
-=head1 NAME
-
-Math::Counting - Combinatorial counting operations
-
-=head1 SYNOPSIS
-
-  use Math::Counting ':student'; # Logical, Academic
-  printf "Given n=%d and r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
-    $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
-
-  use Math::Counting ':big'; # Engineering, Reality
-  printf "n=%d, r=%d:\nBig F=%d\n Big P=%d\nBig C=%d\n",
-    $n, $r, bfact($n), bperm($n, $r), bcomb($n, $r);
-
-=head1 DESCRIPTION
-
-Compute the factorial, number of permutations and number of
-combinations for either engineers or CS students.
-
-The engineer (i.e. C<:big>) version is a "thin wrapper" around
-L<Math::BigInt/bfac>, and a bit of arithmetic.
-
-The student version exists to illustrate the computation.
-
-=head1 FUNCTIONS
-
-=head2 factorial
-
-  $f = factorial($n);
-
-Return the number of arrangements of B<n> according to the
-algorithmically elegant "student" version using real arithmetic.
-
-=cut
 
 sub factorial {
     my( $n ) = @_;
@@ -63,29 +30,12 @@ sub factorial {
     return $product;
 }
 
-=head2 bfact
-
-  $f = bfact($n);
-
-Return the value of the L<Math::BigInt/bfac> function, which is the
-"Right Way To Do It."
-
-=cut
 
 sub bfact {
     my $n = Math::BigInt->new( shift );
     return $n->bfac();
 }
 
-=head2 permutation
-
-  $p = permutation($n, $r);
-
-Return the number of arrangements of B<r> elements drawn from a set of
-B<n> elements.  B<nPn> is the same as B<n!>.  This function employs
-the "student" version.
-
-=cut
 
 sub permutation {
     my( $n, $r ) = @_;
@@ -98,13 +48,6 @@ sub permutation {
     return $product;
 }
 
-=head2 bperm
-
-  $p = bperm($n, $r);
-
-Return the C<Math::BigInt> computation: B<n!/(n-r)!>
-
-=cut
 
 sub bperm {
     my( $n, $r ) = @_;
@@ -114,14 +57,6 @@ sub bperm {
     return $n->bfac() / $r->bfac();
 }
 
-=head2 combination
-
-  $c = combination($n, $r);
-
-Return the number of ways to choose B<r> elements from a set of B<n>
-elements using the "student" version."
-
-=cut
 
 sub combination {
     my( $n, $r ) = @_;
@@ -134,13 +69,6 @@ sub combination {
     return $product;
 }
 
-=head2 bcomb
-
-  $c = bcomb($n, $r);
-
-Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>
-
-=cut
 
 sub bcomb {
     my( $n, $k ) = @_;
@@ -151,7 +79,88 @@ sub bcomb {
 }
 
 1;
+
 __END__
+
+=pod
+
+=head1 NAME
+
+Math::Counting - Combinatorial counting operations
+
+=head1 VERSION
+
+version 0.0907
+
+=head1 SYNOPSIS
+
+  # Academic
+  use Math::Counting ':student';
+  printf "Given n=%d & r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
+    $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
+
+  # Engineering, Reality
+  use Math::Counting ':big';
+  printf "n=%d, r=%d:\nBig F=%d\n Big P=%d\nBig C=%d\n",
+    $n, $r, bfact($n), bperm($n, $r), bcomb($n, $r);
+
+=head1 DESCRIPTION
+
+Compute the factorial, number of permutations and number of combinations for
+either engineers or CS students.
+
+The engineer (i.e. C<:big>) version is a "thin wrapper" around
+L<Math::BigInt/bfac>, and a bit of arithmetic.
+
+The student version exists to illustrate the computation, so use The Source,
+Luke.
+
+=head1 NAME
+
+Math::Counting - Combinatorial counting operations
+
+=head1 FUNCTIONS
+
+=head2 factorial
+
+  $f = factorial($n);
+
+Return the number of arrangements of B<n> according to the
+algorithmically elegant "student" version using real arithmetic.
+
+=head2 bfact
+
+  $f = bfact($n);
+
+Return the value of the L<Math::BigInt/bfac> function, which is the
+"Right Way To Do It."
+
+=head2 permutation
+
+  $p = permutation($n, $r);
+
+Return the number of arrangements of B<r> elements drawn from a set of
+B<n> elements.  B<nPn> is the same as B<n!>.  This function employs
+the "student" version.
+
+=head2 bperm
+
+  $p = bperm($n, $r);
+
+Return the C<Math::BigInt> computation: B<n!/(n-r)!>
+
+=head2 combination
+
+  $c = combination($n, $r);
+
+Return the number of ways to choose B<r> elements from a set of B<n>
+elements using the "student" version."
+
+=head2 bcomb
+
+  $c = bcomb($n, $r);
+
+Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>
 
 =head1 TO DO
 
@@ -200,15 +209,15 @@ Special thanks to:
 
 * Mike Pomraning
 
-=head1 AUTHOR AND COPYRIGHT
+=head1 AUTHOR
 
-Gene Boggs E<lt>gene@cpan.orgE<gt>
+Gene Boggs <gene@cpan.org>
 
-Copyright 2012, Gene Boggs, All Rights Reserved.
+=head1 COPYRIGHT AND LICENSE
 
-=head1 LICENSE
+This software is copyright (c) 2013 by Gene Boggs.
 
-This program is free software; you can redistribute or modify it
-under the same terms as Perl itself.
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut

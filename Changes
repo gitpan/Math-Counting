@@ -1,6 +1,11 @@
 Changes for Math::Counting
 
-{{$NEXT}}
+0.0907    2013-02-18 09:58:56 America/Los_Angeles
+    - Added handy plugins to distro building.
+    - Fixed scientific notation matching.
+    - Removed eval overkill in the methods test.
+
+0.0906 Sat Feb 16, 2013
     - Added Test::PodSpelling to dist.ini.
     - Reduce the precision of the test values by two places.
 
