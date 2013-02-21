@@ -23,12 +23,12 @@ my %WriteMakefileArgs = (
   "NAME" => "Math::Counting",
   "PREREQ_PM" => {
     "Exporter" => 0,
-    "Math::BigInt" => 0,
+    "Math::BigInt" => "1.76",
     "parent" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.0907",
+  "VERSION" => "0.0908",
   "test" => {
     "TESTS" => "t/*.t"
   }

@@ -1,6 +1,9 @@
 Changes for Math::Counting
 
-0.0907    2013-02-18 09:58:56 America/Los_Angeles
+0.0908    2013-02-20 23:00:19 America/Los_Angeles
+    - Okay. This time a cpantester decided to try Math::BigInt ver 0.01. And holy shit that is asinine.
+
+0.0907 2013-02-18 09:58:56 America/Los_Angeles
     - Added handy plugins to distro building.
     - Fixed scientific notation matching.
     - Removed eval overkill in the methods test.
