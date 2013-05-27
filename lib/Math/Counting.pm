@@ -1,7 +1,7 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.0908';
+our $VERSION = '0.10';
 
 use strict;
 use warnings;
@@ -21,7 +21,7 @@ use Math::BigInt;
 
 
 sub factorial {
-    my( $n ) = @_;
+    my $n = shift;
     return unless defined $n && $n =~ /^\d+$/;
     my $product = 1;
     while( $n > 0 ) {
@@ -32,50 +32,64 @@ sub factorial {
 
 
 sub bfact {
-    my $n = Math::BigInt->new( shift );
-    return $n->bfac();
+    my $n = Math::BigInt->new(shift);
+    return $n->bfac;
 }
 
 
 sub permutation {
-    my( $n, $r ) = @_;
-    return unless defined $n && $n =~ /^\d+$/ && defined $r && $r =~ /^\d+$/;
+    my( $n, $k ) = @_;
+    return unless defined $n && $n =~ /^\d+$/ && defined $k && $k =~ /^\d+$/;
     my $product = 1;
-    while( $r > 0 ) {
+    while( $k > 0 ) {
         $product *= $n--;
-        $r--;
+        $k--;
     }
     return $product;
 }
 
 
 sub bperm {
-    my( $n, $r ) = @_;
-    $n = Math::BigInt->new( $n );
-    $r = Math::BigInt->new( $r );
-    $r = $n - $r;
-    return $n->bfac() / $r->bfac();
+    my( $n, $k, $r ) = @_;
+    $n = Math::BigInt->new($n);
+    $k = Math::BigInt->new($k);
+    # With repetitions?
+    if ($r) {
+        return $n->bpow($k);
+    }
+    else {
+        $k = $n - $k;
+        return $n->bfac / $k->bfac;
+    }
 }
 
 
 sub combination {
-    my( $n, $r ) = @_;
-    return unless defined $n && $n =~ /^\d+$/ && defined $r && $r =~ /^\d+$/;
+    my( $n, $k ) = @_;
+    return unless defined $n && $n =~ /^\d+$/ && defined $k && $k =~ /^\d+$/;
     my $product = 1;
-    while( $r > 0 ) {
+    while( $k > 0 ) {
         $product *= $n--;
-        $product /= $r--;
+        $product /= $k--;
     }
     return $product;
 }
 
 
 sub bcomb {
-    my( $n, $k ) = @_;
-    $n = Math::BigInt->new( $n );
-    $k = Math::BigInt->new( $k );
-    my $r = $n - $k;
-    return $n->bfac() / ($k->bfac() * $r->bfac());
+    my( $n, $k, $r ) = @_;
+    $n = Math::BigInt->new($n);
+    $k = Math::BigInt->new($k);
+    # With repetitions?
+    if ($r) {
+        my $c1 = $n + $k - 1;
+        my $c2 = $n - 1;
+        return $c1->bfac / ($k->bfac * $c2->bfac);
+    }
+    else {
+        my $c1 = $n - $k;
+        return $n->bfac / ($k->bfac * $c1->bfac);
+    }
 }
 
 1;
@@ -90,30 +104,32 @@ Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.0908
+version 0.10
 
 =head1 SYNOPSIS
 
-  # Academic
-  use Math::Counting ':student';
-  printf "Given n=%d & r=%d:\nFact=%d\nPerm=%d\nComb=%d\n",
-    $n, $r, factorial($n), permutation($n, $r), combination($n, $r);
+Academic
 
-  # Engineering, Reality
+  use Math::Counting ':student';
+  printf "Given n=%d, k=%d:\n\tF=%d\nP=%d\nC=%d\n",
+    $n, $k, factorial($n), permutation($n, $k), combination($n, $k);
+
+Engineering
+
   use Math::Counting ':big';
-  printf "n=%d, r=%d:\nBig F=%d\n Big P=%d\nBig C=%d\n",
-    $n, $r, bfact($n), bperm($n, $r), bcomb($n, $r);
+  printf "Given n=%d, k=%d, r=%d:\n\tF=%d\nP=%d\nC=%d\n",
+    $n, $k, $r, bfact($n), bperm($n, $k, $r), bcomb($n, $k, $r);
 
 =head1 DESCRIPTION
 
-Compute the factorial, number of permutations and number of combinations for
-either engineers or CS students.
+Compute the factorial, number of permutations and number of combinations.
 
-The engineer (i.e. C<:big>) version is a "thin wrapper" around
-L<Math::BigInt/bfac>, and a bit of arithmetic.
+The C<:big> functions are wrappers around L<Math::BigInt/bfac> with a bit of
+arithmetic between.  The C<bperm> and C<bcomb> functions accept an additional
+boolean to indicate repetition.
 
-The student version exists to illustrate the computation, so use The Source,
-Luke.
+The student versions exist to illustrate the computation "in the raw" as it were.
+To see these computations in action, Use The Source, Luke.
 
 =head1 NAME
 
@@ -125,47 +141,55 @@ Math::Counting - Combinatorial counting operations
 
   $f = factorial($n);
 
-Return the number of arrangements of B<n> according to the
-algorithmically elegant "student" version using real arithmetic.
+Return the number of arrangements of B<n>, notated as C<n!>.
+
+This function employs the algorithmically elegant "student" version using real
+arithmetic.
 
 =head2 bfact
 
   $f = bfact($n);
 
-Return the value of the L<Math::BigInt/bfac> function, which is the
+Return the value of the function L<Math::BigInt/bfac>, which is the
 "Right Way To Do It."
 
 =head2 permutation
 
-  $p = permutation($n, $r);
+  $p = permutation($n, $k);
 
-Return the number of arrangements of B<r> elements drawn from a set of
-B<n> elements.  B<nPn> is the same as B<n!>.  This function employs
-the "student" version.
+Return the number of arrangements, without repetition, of B<k> elements drawn
+from a set of B<n> elements, using the "student" version.
 
 =head2 bperm
 
-  $p = bperm($n, $r);
+  $p = bperm($n, $k, $r);
 
-Return the C<Math::BigInt> computation: B<n!/(n-r)!>
+Return the computations:
+
+  n^k           # with repetition
+  n! / (n-k)!   # without repetition
 
 =head2 combination
 
-  $c = combination($n, $r);
+  $c = combination($n, $k);
 
-Return the number of ways to choose B<r> elements from a set of B<n>
-elements using the "student" version."
+Return the number of ways to choose B<k> elements from a set of B<n>
+elements, without repetition.
+
+This is algorithm expresses the "student" version.
 
 =head2 bcomb
 
-  $c = bcomb($n, $r);
+  $c = bcomb($n, $k, $r);
 
-Return the C<Math::BigInt> computation: B<n!/r!(n-r)!>
+Return the combination computations:
+
+  (n+k-1)! / k!(n-1)!   # with repetition
+  n! / k!(n-k)!         # without repetition
 
 =head1 TO DO
 
-Figure out how to allow the use of different C<Math::BigInt>
-variations, like C<GMP>.
+Allow use of different C<Math::BigInt> variations, like C<GMP>.
 
 Provide the gamma function for the factorial of non-integer numbers?
 
@@ -184,6 +208,8 @@ L<http://en.wikipedia.org/wiki/Factorial>
 L<http://en.wikipedia.org/wiki/Permutation>
 
 L<http://en.wikipedia.org/wiki/Combination>
+
+L<http://www.mathsisfun.com/combinatorics/combinations-permutations-calculator.html>
 
 Naturally, there are a plethora of combinatorics packages available,
 take your pick:
@@ -208,6 +234,8 @@ Special thanks to:
 * Paul Evans
 
 * Mike Pomraning
+
+* Petar Kaleychev
 
 =head1 AUTHOR
 

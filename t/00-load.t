@@ -1,4 +1,5 @@
 #!perl -T
-use Test::More 'no_plan';
+use Test::More;
 BEGIN { use_ok 'Math::Counting' }
 diag( "Testing Math::Counting $Math::Counting::VERSION, Perl $], $^X" );
+done_testing();

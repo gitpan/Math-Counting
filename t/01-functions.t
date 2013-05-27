@@ -1,33 +1,41 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
-use Test::More 'no_plan';
+use Test::More;
 
 use_ok 'Math::Counting', qw(:student :big);
 
 # This is not the most rigorous test.
 # 42 is the magic constant of the smallest magic cube composed with
 # the numbers 1 to 27.  And 27 is the first odd perfect cube, apart
-# from the number, 1.
+# from the number 1.
 
 my $format = '%.8e';
 my $x;
 my $n   = 42;
-my $r   = 27;
-my $f   = 1.40500612e+051;
-my $f2  = 1.08888695e+028;
-my $p   = 1.07443118e+039;
-my $c   = 98_672_427_616;
+my $k   = 27;
+my $f   = '1.40500612e+51';
+my $f2  = '1.08888695e+28';
+my $p   = '1.07443118e+39';
+my $p2  = '4.43426488e+38';
+my $p3  = '1.31002051e+60';
+my $p4  = '6.72559700e+43';
+my $p5  = '1.50130938e+68';
+my $c   = '9.86724276e+10';
+my $c1  = '9.73469713e+14';
+my $c2  = '4.37683992e+18';
+my $c3  = '6.80841765e+18';
+my $c4  = '8.39455243e+23';
 my $nan = 'NaN';
+my $inf = 'inf';
 
-# Factorial  ---------------------------------------------------------
-
+# Factorial
 $x = factorial();
 is $x, undef, 'undef! == undef';
 $x = factorial('foo');
 is $x, undef, 'foo! == undef';
-$x = factorial(0 - $r);
-is $x, undef, "-$r! == undef";
+$x = factorial(0 - $k);
+is $x, undef, "-$k! == undef";
 $x = factorial(-1);
 is $x, undef, "-1! == undef";
 $x = factorial(0);
@@ -36,17 +44,16 @@ $x = factorial(1);
 is $x, 1, "1! == 1";
 $x = factorial(2);
 is $x, 2, "2! == 2";
-$x = sprintf $format, factorial($r);
-is $x, $f2, "$r! is $f2";
+$x = sprintf $format, factorial($k);
+is $x, $f2, "$k! is $f2";
 $x = sprintf $format, factorial($n);
 is $x, $f, "$n! == $f";
 
-# Permutation --------------------------------------------------------
-
+# Permutation without repetition
 $x = permutation('foo', 'bar');
 is $x, undef, 'foo P bar does not make sense';
-$x = permutation(0 - $r, 0 - $n);
-is $x, undef, "-$r P -$n == undef";
+$x = permutation(0 - $k, 0 - $n);
+is $x, undef, "-$k P -$n == undef";
 $x = permutation(-1, 0);
 is $x, undef, "-1 P 0 == undef";
 $x = permutation(0, -1);
@@ -59,21 +66,20 @@ $x = permutation(1, 0);
 is $x, 1, "1 P 0 == 1";
 $x = permutation(1, 1);
 is $x, 1, "1 P 1 == 1";
-$x = sprintf $format, permutation($r, $r);
-is $x, $f2, "$r P $r == $f2";
-$x = permutation($r, $n);
-is $x, 0, "$r P $n == 0";
-$x = sprintf $format, permutation($n, $r);
-is $x, $p, "$n P $r == $p";
+$x = sprintf $format, permutation($k, $k);
+is $x, $f2, "$k P $k == $f2";
+$x = permutation($k, $n);
+is $x, 0, "$k P $n == 0";
+$x = sprintf $format, permutation($n, $k);
+is $x, $p, "$n P $k == $p";
 $x = sprintf $format, permutation($n, $n);
 is $x, $f, "$n P $n == $f";
 
-# Combination --------------------------------------------------------
-
+# Combination without repetition
 $x = combination('foo', 'bar');
 is $x, undef, 'foo C bar does not make sense';
-$x = combination(0 - $n, 0 - $r);
-is $x, undef, "-$n C -$r == undef";
+$x = combination(0 - $n, 0 - $k);
+is $x, undef, "-$n C -$k == undef";
 $x = combination(-1, 0);
 is $x, undef, "-1 C 0 == undef";
 $x = combination(0, -1);
@@ -86,19 +92,18 @@ $x = combination(1, 0);
 is $x, 1, "1 C 0 == 1";
 $x = combination(1, 1);
 is $x, 1, "1 C 1 == 1";
-$x = combination($r, $r);
-is $x, 1, "$r C $r == 1";
-$x = combination($r, $n);
-is $x, 0, "$r C $n == 0";
-$x = combination($n, $r);
-is $x, $c, "$n C $r == $c";
+$x = combination($k, $k);
+is $x, 1, "$k C $k == 1";
+$x = combination($k, $n);
+is $x, 0, "$k C $n == 0";
+$x = sprintf $format, combination($n, $k);
+is $x, $c, "$n C $k == $c";
 $x = combination($n, $n);
 is $x, 1, "$n C $n == 1";
 
-# Factorial  ---------------------------------------------------------
-
-$x = bfact(0 - $r);
-is $x, $nan, "-$r! == $nan";
+# Big Factorial
+$x = bfact(0 - $k);
+is $x, $nan, "-$k! == $nan";
 $x = bfact(-1);
 is $x, $nan, "-1! == $nan";
 $x = bfact(0);
@@ -107,15 +112,14 @@ $x = bfact(1);
 is $x, 1, "1! == 1";
 $x = bfact(2);
 is $x, 2, "2! == 2";
-$x = sprintf $format, bfact($r);
-is $x, $f2, "$r! == $f2";
+$x = sprintf $format, bfact($k);
+is $x, $f2, "$k! == $f2";
 $x = sprintf $format, bfact($n);
 is $x, $f, "$n! == $f";
 
-# Permutation --------------------------------------------------------
-
-$x = bperm(0 - $r, 0 - $n);
-is $x, $nan, "-$r bperm -$n == $nan";
+# Big Permutation without repetition
+$x = bperm(0 - $k, 0 - $n);
+is $x, $nan, "-$k bperm -$n == $nan";
 $x = bperm(-1, 0);
 is $x, $nan, "-1 bperm 0 == $nan";
 $x = bperm(0, -1);
@@ -128,19 +132,18 @@ $x = bperm(1, 0);
 is $x, 1, "1 bperm 0 == 1";
 $x = bperm(1, 1);
 is $x, 1, "1 bperm 1 == 1";
-$x = sprintf $format, bperm($r, $r);
-is $x, $f2, "$r bperm $r == $f2";
-$x = bperm($r, $n);
-is $x, $nan, "$r bperm $n == $nan";
-$x = sprintf $format, bperm($n, $r);
-is $x, $p, "$n bperm $r == $p";
+$x = sprintf $format, bperm($k, $k);
+is $x, $f2, "$k bperm $k == $f2";
+$x = bperm($k, $n);
+is $x, $nan, "$k bperm $n == $nan";
+$x = sprintf $format, bperm($n, $k);
+is $x, $p, "$n bperm $k == $p";
 $x = sprintf $format, bperm($n, $n);
 is $x, $f, "$n bperm $n == $f";
 
-# Combination --------------------------------------------------------
-
-$x = bcomb(0 - $n, 0 - $r);
-is $x, $nan, "-$n bcomb -$r == $nan";
+# Big Combination without repetition
+$x = bcomb(0 - $n, 0 - $k);
+is $x, $nan, "-$n bcomb -$k == $nan";
 $x = bcomb(-1, 0);
 is $x, $nan, "-1 bcomb 0 == $nan";
 $x = bcomb(0, -1);
@@ -153,11 +156,61 @@ $x = bcomb(1, 0);
 is $x, 1, "1 bcomb 0 == 1";
 $x = bcomb(1, 1);
 is $x, 1, "1 bcomb 1 == 1";
-$x = bcomb($r, $r);
-is $x, 1, "$r bcomb $r == 1";
-$x = bcomb($r, $n);
-is $x, $nan, "$r bcomb $n == $nan";
-$x = bcomb($n, $r);
-is $x, $c, "$n bcomb $r == $c";
+$x = bcomb($k, $k);
+is $x, 1, "$k bcomb $k == 1";
+$x = bcomb($k, $n);
+is $x, $nan, "$k bcomb $n == $nan";
+$x = sprintf $format, bcomb($n, $k);
+is $x, $c, "$n bcomb $k == $c";
 $x = bcomb($n, $n);
 is $x, 1, "$n bcomb $n == 1";
+
+# Big Permutation with repetition
+$x = bperm(0 - $k, 0 - $n, 1);
+is $x, $nan, "-$k bperm -$n == $nan";
+$x = bperm(-1, 0, 1);
+is $x, 1, '-1 bperm 0 == 1';
+$x = bperm(0, -1, 1);
+is $x, $inf, "0 bperm -1 == $inf";
+$x = bperm(0, 0, 1);
+is $x, 1, "0 bperm 0 == 1";
+$x = bperm(0, 1, 1);
+is $x, 0, "0 bperm 1 == 0";
+$x = bperm(1, 0, 1);
+is $x, 1, "1 bperm 0 == 1";
+$x = bperm(1, 1, 1);
+is $x, 1, "1 bperm 1 == 1";
+$x = sprintf $format, bperm($k, $k, 1);
+is $x, $p2, "$k bperm $k == $p2";
+$x = sprintf $format, bperm($k, $n, 1);
+is $x, $p3, "$k bperm $n == $p3";
+$x = sprintf $format, bperm($n, $k, 1);
+is $x, $p4, "$n bperm $k == $p4";
+$x = sprintf $format, bperm($n, $n, 1);
+is $x, $p5, "$n bperm $n == $p5";
+
+# Big Combination with repetition
+$x = bcomb(0 - $n, 0 - $k, 1);
+is $x, $nan, "-$n bcomb -$k == $nan";
+$x = bcomb(-1, 0, 1);
+is $x, $nan, "-1 bcomb 0 == $nan";
+$x = bcomb(0, -1, 1);
+is $x, $nan, "0 bcomb -1 == $nan";
+$x = bcomb(0, 0, 1);
+is $x, $nan, "0 bcomb 0 == $nan";
+$x = bcomb(0, 1, 1);
+is $x, $nan, "0 bcomb 1 == $nan";
+$x = bcomb(1, 0, 1);
+is $x, 1, "1 bcomb 0 == 1";
+$x = bcomb(1, 1, 1);
+is $x, 1, "1 bcomb 1 == 1";
+$x = sprintf $format, bcomb($k, $k, 1);
+is $x, $c1, "$k bcomb $k == $c1";
+$x = sprintf $format, bcomb($k, $n, 1);
+is $x, $c2, "$k bcomb $n == $c2";
+$x = sprintf $format, bcomb($n, $k, 1);
+is $x, $c3, "$n bcomb $k == $c3";
+$x = sprintf $format, bcomb($n, $n, 1);
+is $x, $c4, "$n bcomb $n == $c4";
+
+done_testing();
