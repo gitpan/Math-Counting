@@ -1,6 +1,10 @@
 Changes for Math::Counting
 
-0.10      2013-05-27 16:55:26 America/Los_Angeles
+0.1100    2013-05-29 18:46:21 America/Los_Angeles
+    - Add try => GMP to the use Math::BigInt line.
+    - Add upper bounds factorial tests.
+
+0.10 2013-05-27 16:55:26 America/Los_Angeles
     - Add computation of combinations with repetition from Petar Kaleychev.
     - Add tests for repetition computation.
     - Improve documentation.

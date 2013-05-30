@@ -14,6 +14,8 @@ my $format = '%.8e';
 my $x;
 my $n   = 42;
 my $k   = 27;
+my $f3  = 171;
+my $f4  = '1.24101807e+309';
 my $f   = '1.40500612e+51';
 my $f2  = '1.08888695e+28';
 my $p   = '1.07443118e+39';
@@ -48,6 +50,8 @@ $x = sprintf $format, factorial($k);
 is $x, $f2, "$k! is $f2";
 $x = sprintf $format, factorial($n);
 is $x, $f, "$n! == $f";
+$x = sprintf $format, factorial($f3);
+is $x, $inf, "($f3)! == $inf";
 
 # Permutation without repetition
 $x = permutation('foo', 'bar');
@@ -116,6 +120,8 @@ $x = sprintf $format, bfact($k);
 is $x, $f2, "$k! == $f2";
 $x = sprintf $format, bfact($n);
 is $x, $f, "$n! == $f";
+$x = sprintf $format, bfact($f3);
+ok $x ne $f4, "($f3)! != $f4";
 
 # Big Permutation without repetition
 $x = bperm(0 - $k, 0 - $n);

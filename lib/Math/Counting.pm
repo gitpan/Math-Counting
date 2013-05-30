@@ -1,7 +1,7 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.10';
+our $VERSION = '0.1100';
 
 use strict;
 use warnings;
@@ -17,7 +17,7 @@ our %EXPORT_TAGS = (
     big     => [qw( bfact     bperm       bcomb )],
 );
 
-use Math::BigInt;
+use Math::BigInt try => 'GMP';
 
 
 sub factorial {
@@ -32,7 +32,8 @@ sub factorial {
 
 
 sub bfact {
-    my $n = Math::BigInt->new(shift);
+    my $n = shift;
+    $n = Math::BigInt->new($n);
     return $n->bfac;
 }
 
@@ -104,7 +105,7 @@ Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.10
+version 0.1100
 
 =head1 SYNOPSIS
 
