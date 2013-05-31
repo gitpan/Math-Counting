@@ -1,11 +1,12 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.1100';
+our $VERSION = '0.1200';
 
 use strict;
 use warnings;
 
+# Export either "student" or "engineering" methods.
 use parent qw(Exporter);
 our @EXPORT = ();
 our @EXPORT_OK = qw(
@@ -17,7 +18,17 @@ our %EXPORT_TAGS = (
     big     => [qw( bfact     bperm       bcomb )],
 );
 
-use Math::BigInt try => 'GMP';
+# Try to use a math processor.
+BEGIN {
+    eval { use Math::BigInt only => 'GMP' };
+    if ($@) {
+        eval { use Math::BigInt only => 'Pari' };
+        if ($@) {
+            eval { use Math::BigInt };
+        }
+    }
+    
+}
 
 
 sub factorial {
@@ -105,7 +116,7 @@ Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.1100
+version 0.1200
 
 =head1 SYNOPSIS
 
@@ -190,7 +201,7 @@ Return the combination computations:
 
 =head1 TO DO
 
-Allow use of different C<Math::BigInt> variations, like C<GMP>.
+Provide the http://mathworld.wolfram.com/Subfactorial.html
 
 Provide the gamma function for the factorial of non-integer numbers?
 
@@ -204,10 +215,8 @@ B<Higher Order Perl> by Mark Jason Dominus
 B<Mastering Algorithms with Perl> by Orwant, Hietaniemi & Macdonald
 (L<http://www.oreilly.com/catalog/maperl>).
 
-L<http://en.wikipedia.org/wiki/Factorial>
-
-L<http://en.wikipedia.org/wiki/Permutation>
-
+L<http://en.wikipedia.org/wiki/Factorial>, 
+L<http://en.wikipedia.org/wiki/Permutation> &
 L<http://en.wikipedia.org/wiki/Combination>
 
 L<http://www.mathsisfun.com/combinatorics/combinations-permutations-calculator.html>

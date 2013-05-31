@@ -51,7 +51,7 @@ is $x, $f2, "$k! is $f2";
 $x = sprintf $format, factorial($n);
 is $x, $f, "$n! == $f";
 $x = sprintf $format, factorial($f3);
-is $x, $inf, "($f3)! == $inf";
+ok $x eq $inf || $x eq $f4, "$f3! == $inf or $f4";
 
 # Permutation without repetition
 $x = permutation('foo', 'bar');
@@ -121,7 +121,7 @@ is $x, $f2, "$k! == $f2";
 $x = sprintf $format, bfact($n);
 is $x, $f, "$n! == $f";
 $x = sprintf $format, bfact($f3);
-ok $x ne $f4, "($f3)! != $f4";
+ok $x eq $inf || $x eq $f4, "$f3! == $inf or $f4";
 
 # Big Permutation without repetition
 $x = bperm(0 - $k, 0 - $n);

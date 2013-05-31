@@ -1,6 +1,11 @@
 Changes for Math::Counting
 
-0.1100    2013-05-29 18:46:21 America/Los_Angeles
+0.1200    2013-05-30 19:25:34 America/Los_Angeles
+    - Contemplate the sub-factorial.
+    - Allow either GMP or Pari to be used.
+    - Allow upper bound test to pass with inf or the actual e+309 value.
+
+0.1100 2013-05-29 18:46:21 America/Los_Angeles
     - Add try => GMP to the use Math::BigInt line.
     - Add upper bounds factorial tests.
 
