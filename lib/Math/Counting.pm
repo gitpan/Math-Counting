@@ -1,7 +1,7 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.1200';
+our $VERSION = '0.1201';
 
 use strict;
 use warnings;
@@ -15,20 +15,11 @@ our @EXPORT_OK = qw(
 );
 our %EXPORT_TAGS = (
     student => [qw( factorial permutation combination )],
-    big     => [qw( bfact     bperm       bcomb )],
+    big     => [qw( bfact bperm bcomb )],
 );
 
 # Try to use a math processor.
-BEGIN {
-    eval { use Math::BigInt only => 'GMP' };
-    if ($@) {
-        eval { use Math::BigInt only => 'Pari' };
-        if ($@) {
-            eval { use Math::BigInt };
-        }
-    }
-    
-}
+use Math::BigInt try => 'GMP,Pari';
 
 
 sub factorial {
@@ -76,6 +67,25 @@ sub bperm {
 }
 
 
+sub bderange {
+    my $n = shift;
+    # This provides computational alternation.
+    my $mone = Math::BigInt->bone('-'); # -1
+    # The return value starts life as zero.
+    my $d = Math::BigInt->bzero;
+    # Compute the derangements of n.
+    for ( 0 .. $n ) {
+        my $i = Math::BigInt->new($_);
+        my $m = $mone->copy();
+        my $j = $m->bpow($i);
+warn"$m^$i == $j ?\n";
+        $d += $j / $i->bfac;
+warn sprintf "%d. %d += %s / %d\n", $i, $d, $j, $i->bfac;
+    }
+    return bfact($n) * $d;
+}
+
+
 sub combination {
     my( $n, $k ) = @_;
     return unless defined $n && $n =~ /^\d+$/ && defined $k && $k =~ /^\d+$/;
@@ -116,21 +126,21 @@ Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.1200
+version 0.1201
 
 =head1 SYNOPSIS
 
 Academic
 
   use Math::Counting ':student';
-  printf "Given n=%d, k=%d:\n\tF=%d\nP=%d\nC=%d\n",
+  printf "Given n=%d, k=%d:\nF=%d\nP=%d\nC=%d\n",
     $n, $k, factorial($n), permutation($n, $k), combination($n, $k);
 
 Engineering
 
   use Math::Counting ':big';
-  printf "Given n=%d, k=%d, r=%d:\n\tF=%d\nP=%d\nC=%d\n",
-    $n, $k, $r, bfact($n), bperm($n, $k, $r), bcomb($n, $k, $r);
+  printf "Given n=%d, k=%d, r=%d:\nF=%d\nP=%d\nD=%d\nC=%d\n",
+    $n, $k, $r, bfact($n), bperm($n, $k, $r), bderange($n), bcomb($n, $k, $r);
 
 =head1 DESCRIPTION
 
@@ -181,6 +191,17 @@ Return the computations:
   n^k           # with repetition
   n! / (n-k)!   # without repetition
 
+=head2 bderange()
+
+* Not yet implemented *
+
+"A derangement is a permutation in which none of the objects appear in their
+"natural" (i.e., ordered) place." -- wolfram under L</"SEE ALSO">
+
+Return the computation:
+
+  !n = n! * ( sum (-1)^k/k! for k=0 to n )
+
 =head2 combination
 
   $c = combination($n, $k);
@@ -201,7 +222,7 @@ Return the combination computations:
 
 =head1 TO DO
 
-Provide the http://mathworld.wolfram.com/Subfactorial.html
+Allow specification of the math processor to use.
 
 Provide the gamma function for the factorial of non-integer numbers?
 
@@ -220,6 +241,8 @@ L<http://en.wikipedia.org/wiki/Permutation> &
 L<http://en.wikipedia.org/wiki/Combination>
 
 L<http://www.mathsisfun.com/combinatorics/combinations-permutations-calculator.html>
+
+L<http://mathworld.wolfram.com/Derangement.html>
 
 Naturally, there are a plethora of combinatorics packages available,
 take your pick:
