@@ -15,9 +15,9 @@ meta-spec:
 name: Math-Counting
 requires:
   Exporter: 0
-  Math::BigInt: 1.76
+  Math::BigInt: 1.78
   parent: 0
   perl: 5.006
   strict: 0
   warnings: 0
-version: 0.1201
+version: 0.1202
