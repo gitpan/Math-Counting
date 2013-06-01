@@ -1,7 +1,7 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.1202';
+our $VERSION = '0.1300';
 
 use strict;
 use warnings;
@@ -12,13 +12,15 @@ our @EXPORT = ();
 our @EXPORT_OK = qw(
     factorial permutation combination
     bfact     bperm       bcomb
+              bderange
 );
 our %EXPORT_TAGS = (
     student => [qw( factorial permutation combination )],
-    big     => [qw( bfact bperm bcomb )],
+    big     => [qw( bfact bperm bcomb bderange )],
 );
 
 # Try to use a math processor.
+use Math::BigFloat try => 'GMP,Pari'; # Used for derangement computation only.
 use Math::BigInt try => 'GMP,Pari';
 
 
@@ -69,20 +71,18 @@ sub bperm {
 
 sub bderange {
     my $n = shift;
-    # This provides computational alternation.
-    my $mone = Math::BigInt->bone('-'); # -1
-    # The return value starts life as zero.
-    my $d = Math::BigInt->bzero;
-    # Compute the derangements of n.
+    my $mone = Math::BigFloat->bone('-'); # -1
+    my $s = Math::BigFloat->bzero;
     for ( 0 .. $n ) {
-        my $i = Math::BigInt->new($_);
-        my $m = $mone->copy();
+        my $i = Math::BigFloat->new($_);
+        my $m = $mone->copy;
         my $j = $m->bpow($i);
-warn"$m^$i == $j ?\n";
-        $d += $j / $i->bfac;
-warn sprintf "%d. %d += %s / %d\n", $i, $d, $j, $i->bfac;
+        my $x = $i->copy;
+        my $f = $x->bfac;
+        $s += $j / $f;
     }
-    return bfact($n) * $d;
+    $n = Math::BigFloat->new($n);
+    return $n->bfac * $s;
 }
 
 
@@ -126,7 +126,7 @@ Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.1202
+version 0.1300
 
 =head1 SYNOPSIS
 
@@ -192,8 +192,6 @@ Return the computations:
   n! / (n-k)!   # without repetition
 
 =head2 bderange()
-
-* Not yet implemented *
 
 "A derangement is a permutation in which none of the objects appear in their
 "natural" (i.e., ordered) place." -- wolfram under L</"SEE ALSO">
@@ -269,6 +267,8 @@ Special thanks to:
 * Mike Pomraning
 
 * Petar Kaleychev
+
+* Dana Jacobsen
 
 =head1 AUTHOR
 

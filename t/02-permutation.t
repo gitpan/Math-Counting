@@ -21,6 +21,10 @@ my $p2  = '4.43426488e+38';
 my $p3  = '1.31002051e+60';
 my $p4  = '6.72559700e+43';
 my $p5  = '1.50130938e+68';
+my $p6  = '2.00000000e+00';
+my $p7  = '9.00000000e+00';
+my $p8  = '1.76214841e+08';
+my $p9  = '9.75810738e+31';
 my $nan = 'NaN';
 my $inf = 'inf';
 
@@ -96,9 +100,6 @@ is $x, $p4, "$n bperm $k == $p4";
 $x = sprintf $format, bperm($n, $n, 1);
 is $x, $p5, "$n bperm $n == $p5";
 
-done_testing();
-
-__END__
 # Derangements
 # 0, 1, 2, 9, 44, 265, 1854...
 $x = bderange(0);
@@ -107,9 +108,13 @@ $x = bderange(1);
 is $x, 0, "bderange(1) == 0";
 $x = bderange(2);
 is $x, 1, "bderange(2) == 1";
-$x = bderange(3);
-is $x, 2, "bderange(3) == 2";
-$x = bderange(4);
-is $x, 9, "bderange(4) == 9";
+$x = sprintf $format, bderange(3);
+is $x, $p6, "bderange(3) == 2";
+$x = sprintf $format, bderange(4);
+is $x, $p7, "bderange(4) == 9";
 $x = sprintf $format, bderange(12);
-is $x, 2, "bderange(12) == 1.76214841e+8";
+is $x, $p8, "bderange(12) == $p8";
+$x = sprintf $format, bderange(30);
+is $x, $p9, "bderange(30) == $p9";
+
+done_testing();
