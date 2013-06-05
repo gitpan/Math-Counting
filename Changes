@@ -1,6 +1,11 @@
 Change history for Math::Counting
 
-0.1301    2013-06-03 12:08:19 America/Los_Angeles
+0.1302    2013-06-04 11 p
+    - Fixed infinity tests on "differnently-abled" systems.
+    - Split up tests into conceptual files.
+    - Improved docs.
+
+0.1301 2013-06-03
     - Removed the annoying " == $x" bits from test names.
     - Try to isolate the 171! on windows test failure...
     - Handle zero padded exponents in tests.

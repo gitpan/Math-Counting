@@ -14,13 +14,12 @@ my $format = '%.8e';
 my $x;
 my $n   = 42;
 my $k   = 27;
-my $c1  = qr/9\.73469713e\+0?14/;
-my $c2  = qr/4\.37683992e\+0?18/;
-my $c3  = qr/6\.80841765e\+0?18/;
-my $c4  = qr/8\.39455243e\+0?23/;
-my $c5  = qr/9\.86724276e\+0?10/;
+my $c1  = qr/^9\.73469713e\+0?14$/;
+my $c2  = qr/^4\.37683992e\+0?18$/;
+my $c3  = qr/^6\.80841765e\+0?18$/;
+my $c4  = qr/^8\.39455243e\+0?23$/;
+my $c5  = qr/^9\.86724276e\+0?10$/;
 my $nan = 'NaN';
-my $inf = 'inf';
 
 # Combination without repetition
 $x = combination(0 - $n, 0 - $k);

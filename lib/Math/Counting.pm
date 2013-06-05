@@ -1,23 +1,23 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.1301';
+our $VERSION = '0.1302';
 
 use strict;
 use warnings;
 
 # Export either "student" or "engineering" methods.
 use parent qw(Exporter);
-our @EXPORT = ();
+our %EXPORT_TAGS = (
+    student => [qw( factorial permutation combination )],
+    big     => [qw( bfact bperm bcomb bderange )],
+);
 our @EXPORT_OK = qw(
     factorial permutation combination
     bfact     bperm       bcomb
               bderange
 );
-our %EXPORT_TAGS = (
-    student => [qw( factorial permutation combination )],
-    big     => [qw( bfact bperm bcomb bderange )],
-);
+our @EXPORT = ();
 
 # Try to use a math processor.
 use Math::BigFloat try => 'GMP,Pari'; # Used for derangement computation only.
@@ -126,7 +126,7 @@ Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.1301
+version 0.1302
 
 =head1 SYNOPSIS
 
@@ -147,8 +147,8 @@ Engineering
 Compute the factorial, number of permutations and number of combinations.
 
 The C<:big> functions are wrappers around L<Math::BigInt/bfac> with a bit of
-arithmetic between.  The C<bperm> and C<bcomb> functions accept an additional
-boolean to indicate repetition.
+arithmetic between.  Also the C<bperm> function accepts an additional boolean to
+indicate repetition.
 
 The student versions exist to illustrate the computation "in the raw" as it were.
 To see these computations in action, Use The Source, Luke.

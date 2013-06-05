@@ -16,14 +16,14 @@ my $n   = 42;
 my $k   = 27;
 my $f3  = 171;
 my $f4  = '1.24101807e+309';
-my $f1  = qr/1\.40500612e\+0?51/;
-my $f2  = qr/1\.08888695e\+0?28/;
+my $f1  = qr/^1\.40500612e\+0?51$/;
+my $f2  = qr/^1\.08888695e\+0?28$/;
 my $nan = 'NaN';
-my $inf = 'inf';
+my $inf = qr/inf/i;
 
 # Factorial
 $x = factorial();
-is $x, undef, 'undef!';
+is $x, undef, "undef!";
 $x = factorial(-1);
 is $x, undef, "-1!";
 $x = factorial(0);
@@ -33,13 +33,17 @@ is $x, 1, "1!";
 $x = factorial(2);
 is $x, 2, "2!";
 $x = sprintf $format, factorial($k);
-like $x, $f2, "$k! is $f2";
+like $x, $f2, "$k!";
 $x = sprintf $format, factorial($n);
 like $x, $f1, "$n!";
 $x = sprintf $format, factorial($f3);
-# Test on machines that are "differently-abled."
-if ( $x eq $inf ) {
-    is $x, $inf, "$f3!";
+# Pass on machines that are "differently-abled." E.g:
+# SunOS/Solaris: Infinity
+# Win32: 1.#INF0000e+00  # Bwahahahaha!
+# Most others, including darwin: inf
+if ( $x =~ $inf ) {
+    like $x, $inf, "$f3! == $x ($^O)";
+    diag("OS_ERROR: $^E") if $^E;
 }
 else {
     is $x, $f4, "$f3!";
@@ -59,9 +63,10 @@ like $x, $f2, "$k!";
 $x = sprintf $format, bfact($n);
 like $x, $f1, "$n!";
 $x = sprintf $format, bfact($f3);
-# Test on machines that are "differently-abled."
-if ( $x eq $inf ) {
-    is $x, $inf, "$f3!";
+# Pass on machines that are "differently-abled."
+if ( $x =~ $inf ) {
+    like $x, $inf, "$f3! == $x ($^O)";
+    diag("OS_ERROR: $^E") if $^E;
 }
 else {
     is $x, $f4, "$f3!";
