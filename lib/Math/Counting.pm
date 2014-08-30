@@ -1,7 +1,7 @@
 package Math::Counting;
 # ABSTRACT: Combinatorial counting operations
 
-our $VERSION = '0.1303';
+our $VERSION = '0.1304';
 
 use strict;
 use warnings;
@@ -120,13 +120,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Math::Counting - Combinatorial counting operations
 
 =head1 VERSION
 
-version 0.1303
+version 0.1304
 
 =head1 SYNOPSIS
 
@@ -152,10 +154,6 @@ indicate repetition.
 
 The student versions exist to illustrate the computation "in the raw" as it were.
 To see these computations in action, Use The Source, Luke.
-
-=head1 NAME
-
-Math::Counting - Combinatorial counting operations
 
 =head1 FUNCTIONS
 
@@ -276,7 +274,7 @@ Gene Boggs <gene@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Gene Boggs.
+This software is copyright (c) 2014 by Gene Boggs.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

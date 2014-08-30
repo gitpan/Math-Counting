@@ -3,22 +3,22 @@ abstract: 'Combinatorial counting operations'
 author:
   - 'Gene Boggs <gene@cpan.org>'
 build_requires:
-  Test::More: 0
+  Test::More: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
+  ExtUtils::MakeMaker: '0'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.130880'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.141520'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Math-Counting
 requires:
-  Exporter: 0
-  Math::BigFloat: 0
-  Math::BigInt: 1.78
-  parent: 0
-  perl: 5.006
-  strict: 0
-  warnings: 0
-version: 0.1303
+  Exporter: '0'
+  Math::BigFloat: '0'
+  Math::BigInt: '1.78'
+  parent: '0'
+  perl: '5.006'
+  strict: '0'
+  warnings: '0'
+version: '0.1304'
